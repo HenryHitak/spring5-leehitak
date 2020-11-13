@@ -1,5 +1,21 @@
 ####20201113(금)
+- 라이센스(저작권):아래
+- GNU: GNU는  NOot Unix이다. 유닉스 OS 비쌈
+- LGPL: General Purpose License (일반목적의 공개 라이센스)
+- MIT: MIT 공대에서 만든 라이센스, 비영리, 영리 유연성있는 라이센스.
+- 1. 헤로쿠에서 HSql 메모리 데이터베이스 사용 (서버를 껐다가 켜면, 내용이 원상복귀)
+- 보통 솔루션은 데모페이지가 존재. 데모페이지에 자료등록이 가능.
+- 데모페이지의 데이터는 서버를 저녁에 껐다가 켜면, 데모페이지 데이터가 초기화됨.
+- HSql DB가 위와 같은 상황에서 사용됨.
+- 파스타 클라우드에서는 Myseql DB사용 (서버를 껐다가 켜도, 내용이 계속 유지됨)
+- Encoding: 코드화 UTF-8, Decoding 복호화
+- MVC: Java Dev. 방식중에 MVC가 존재, Model View Controller의 약자
+- Model: 데이터베이스 부분
+- Controller: DB와 View를 연결시켜줌
+- View: home.jsp 이것처럼, 화면부분
+- IDE: 통합개발환경 Intergration Development Environment (이클립스, 안드로이드 스튜디어, VScode)
 - 앞으로 여러분들의 작업순서가 아래처럼 진행됩니다.
+- log: 로그 에러상황을 확인할때 보통 많이 사용하는 용어. log4j 사용해서 데이터 전송상황, 에러표시 등을 사용.
 - 1. 이클립스에서 학생명의 프로젝트 소스수정 + 기능 추가.
 - 2. 이클립스 수정한 결과, Run on Server로 톰캣에서 확인 ok. http"//localhost:8080/
 - 3. 깃에 푸시.
