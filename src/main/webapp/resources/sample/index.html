@@ -11,6 +11,7 @@ span {
 display:block;width:50px;height:20px;background-color:red;
 margin-bottom:10px;
 }
+#wrap .slider img {width:100%;}/* Cascade Style Sheet 특징 계단형 스탕리 지정*/
 /* 모바일용 스타일지정 */
 </style>
 <script>
@@ -27,17 +28,25 @@ margin-bottom:10px;
 <span></span>
 <span></span>
 <span></span>
-햄버거메뉴이미지
-HOME
-WE ARE
-WORK
-BLOG
-CONTACT US
+<!-- 리스트를 모여주는 태그 ul,ol (Ordered List 1.내용, 2.내용)-->
+<ul>
+<li>햄버거메뉴이미지</li>
+<li>HOME</li>
+<li>WE ARE</li>
+<li>WORK</li>
+<li>BLOG</li>
+<li>CONTACT US</li>
+</ul>
 <!-- 상단 로고와 햄버거 메뉴영역 끝 -->
 </header>
 <section><!-- division 디비전이라는 div 영역표시 태그 대신에 사용-->
 <!-- 본문 슬라이드 영역 -->
-슬라이드 이미지 1
+<!-- 이미지를 불러오는 태그 img -->
+<!-- 경로:상대(./img...), 절대경로(/edu_webapp/resources/sample/index...) -->
+<!-- 태그 안쪽에 지정한 스타일을 인라인 스타일 -->
+<div class="slider">
+     <img src="/edu_webapp/resources/sample/img/europe.jpg" alt="유럽 이미지 입니다.">
+</div>
 <!-- 본문 슬라이드 영역 끝 -->
 </section>
 <footer>
