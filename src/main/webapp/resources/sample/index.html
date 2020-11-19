@@ -75,10 +75,12 @@ color:#fff;
 /* 자바스크립트 시작 */
 //네이티비(오리지널-옛날부터 )자바스크립트로 햄버거메뉴 액션 구현(아래)
 //docment.getElementById("Css 아이디영역")
-var toggle_menu = document.getElementsByClassName("stopButton")[0];
-stopButton.onclick = function(){
-toggle_menu.onClick = funtion(){//이름이 없는 함수를 콜백함수라고 합니다.}
+//함수의 기본형은 아래와 같습니다.
+function Add(a,b) {//a,b 받아서 구현(아래) 매개변수=인자=파라미터
+	var sum = a+b;
+	alert(a + "더하기" + b + "는" + sum + "입니다.");
 }
+Add(3,5);//실행은 함수명을 호출하면 실행이 됩니다.
 /* 자바스크립트 끝 */
 </script>
 </head>

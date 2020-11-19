@@ -6,9 +6,9 @@
 - 함수란: 입력값이 있으면 출력값이 있는 것을 함수라고함.
 - function Add(a,b) {
 - var sum = a+b;
-- return sum;
+- alert(a + "더하기" + b + "는" + sum + "입니다.");
 - }
-- 함수실행: alert
+- 함수실행: add(3,5);
 - 대표적인 에러메세지:(Http status 웹브라우저 상태 에러 아래)
 - 404 Not Found: 경로에 파일이 없을때
 - 500 Error: 스프링/자바 프로그램 에러
