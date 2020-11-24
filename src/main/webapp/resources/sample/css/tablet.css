@@ -2,4 +2,29 @@
 /*미디어쿼리:미디어의 가로크기가 768px 이상이면 아래 스타일적용*/
 @media all and (min-width:768px) {
 	
+/*헤더영역시작*/
+.menu-toggle-btn {display:none;}
+.header .gnb {
+display:block;
+position:static;/*absolute에서 static*/
+background:none;
+width:auto;
+float:right;/*가로위치를 오른쪽으로 변경*/
+margin-top:10px;
+}
+.header .gnb li {
+float:left;
+border:none;
+width:95px;
+}
+.header .gnb li:last-child {border-bottom:none;}
+.header .gnb li a {
+display:inline-block;/*콘텐츠 내용 크기만큼만 자리를 차지하는 영역*/
+color:#3f51b5;
+}
+.header .gnb li a:hover {text-decoration:none;}
+/*슬라이드 영역 끝*/
+
+}
+/*태블릿용 스타일 끝*/
 }
