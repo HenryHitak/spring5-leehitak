@@ -3,7 +3,7 @@
 <head><!-- 문서내용과는 관계없는 문서정보=메타데이터(데이터의데이터)가 존재 -->
 <meta charset="UTF-8"><!-- 문서의 언어 인코딩설정  지금은 유니코드로 됨 -->
 <!-- 반응형을 작동하기 위해서 사용하는 메타태그 -->
-<meta name="viewport" content="width=device-iniitial-scale=1,minimum-scale=1,maximum-scale=1,user-scaleable=no">
+<meta name="viewport" content="width=device, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scaleable=no">
 <title>반응형홈페이지</title><!-- 문서의 제목을 브라우저상단왼쪽에 표시 -->
 <!-- 외부 자바스크립트 불러오는 태그(아래) -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -26,10 +26,25 @@
 @media all and (min-width:768px) {
 
 /*헤더영역시작*/
-
-/*헤더영역끝*/
-/*슬라이드 영역 시작*/
-.carouselitem, .carousel-item img{height:500px;}
+.menu-toggle-btn {display:none;}
+.header .gnb {
+display:block;
+position:static;/*absolute에서 static*/
+background:none;
+width:auto;
+float:right;/*가로위치를 오른쪽으로 변경*/
+margin-top:10px;
+}
+.header .gnb li {
+float:left;
+border:none;
+width:95px;
+}
+.header .gnb li:last-child {border-bottom:none;}
+.header .gnb li a {
+color:#3f51b5;
+}
+.header .gnb li a:hover {text-decoration:none;}
 /*슬라이드 영역 끝*/
 
 }
