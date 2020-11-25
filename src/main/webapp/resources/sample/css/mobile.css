@@ -1,6 +1,9 @@
 @charset "UTF-8";
 /* 모바일용 스타일지정 시작  */
-body {font-size:14px;}/*부트스트랩css영향을 받은것을 무효화시키고, 사용자css로 적용*/
+body {font-size:14px;/*부트스트랩css 또는 reset.css.에서 초기화 된것을 재 정의할때*/
+bacground:#fff;
+line-height:1.4;/*상속 바로 이전에 적용한 값을 초기화 inherit, initial 시키는 역할*/
+}/*부트스트랩 라이브러리 영향 받은것을 무효화 시킨*/
 /* 헤더영역 시작 */
 .header {
 height:80px;
@@ -169,6 +172,7 @@ margin-top:30px;
 text-align:center;
 font-size:30px;
 color:#3f51b5;
+font-weight:normal;
 }
 .blog-section .container {
 width:90%;
@@ -244,4 +248,15 @@ margin:10px;
 text-align:right;/*div영역 안의 내용을 좌우 가운데 정렬시키는 명령*/
 }
 /*contact 영역 끝*/
+/*블로그 영역 시작*/
+.blog-section li {
+float:left;/*세로배치가 3개 가로배치로 변함*/
+width:31.59722222222%;/*3개중 1개의 가로크기(x/768)*100=31.597222222%*/
+margin-left:2.604166666666%;/*1개 여백 구하기(x/768)*100=2.6041666%*/
+}
+.blog-section li:first-child{ /*마지막 list가 아래로 떨어지는것을 방지하는 역할*/
+margin-left:0;
+}
+.blog-section hr {display:none;}
+/*블로그 영역 끝*/
 /* 모바일용 스타일지정 끝 */

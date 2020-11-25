@@ -40,7 +40,9 @@ overflow:hidden;/*반응형list 박스에서 가로크기를 벗어나는 이미
 margin-left:0px;
 }
 /*we are 영역 끝*/
-
+.work-section li {
+float:left;/*세로배치를 가로배치로 변경*/
+width:50%;
 }
 /*태블릿용 스타일 끝*/
 }
