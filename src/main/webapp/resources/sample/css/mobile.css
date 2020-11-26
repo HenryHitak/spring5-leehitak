@@ -1,9 +1,5 @@
 @charset "UTF-8";
 /* 모바일용 스타일지정 시작  */
-body {font-size:14px;/*부트스트랩css 또는 reset.css.에서 초기화 된것을 재 정의할때*/
-bacground:#fff;
-line-height:1.4;/*상속 바로 이전에 적용한 값을 초기화 inherit, initial 시키는 역할*/
-}/*부트스트랩 라이브러리 영향 받은것을 무효화 시킨*/
 /* 헤더영역 시작 */
 .header {
 height:80px;
@@ -23,7 +19,7 @@ font-weight:normal;/*글자두께*/
 text-indent:-9999%;/*들여쓰기*/
 display:block;
 height:80px;
-background:url(/resources/sample/img/europe-flag.png) no-repeat;/*배경이미지 기본이 반복repeat*/
+background:url(/resources/sample/img/ball.png) no-repeat;/*배경이미지 기본이 반복repeat*/
 background-size:90%;
 background-position:0px center;/*배경위치는 0px(가로) center(세로)*/
 }
@@ -64,13 +60,14 @@ font-size:14px;
 color:#fff;
 }
 /* 헤더영역 끝 */
+
 /* 본문섹션 슬라이드영역 시작 */
 #wrap .slider img {width:100%;}/* Cascade Style Sheet 특징 계단형 스타일지정 */
-.carousel-item, .carousel-item img  {height:400px;}
 /* 본분섹션 슬라이드영역 끝 */
+
 /* 푸터영역 시작 */
 .footer {
-padding-top:30px;/*matgin-top이었는데 작동을 하지 않아서  padding-top으로 변경*/
+margin-top:30px;
 }
 .footer p {
 margin: 21px 0px;
@@ -78,7 +75,8 @@ color:#3f51b5;
 text-align:center;/*문장내용을 가로 가운데 정렬*/
 }
 /* 푸터영역 끝 */
-/* we are 페이지 영역*/
+
+/* we are페이지 영역 시작 */
 .weare-header {
 margin-top:30px;
 text-align:center;
@@ -88,9 +86,9 @@ margin-bottom:30px;
 font-size:42px;
 color:#3f51b5;
 font-weight:normal;
-letter-spacing:10px;/*자간*/
+letter-spacing:5px;/*글자사이 간격주가*/
 }
-.weare-header p{
+.weare-header p {
 color:#616161;
 line-height:1.9;/*줄간격 단위 1.9 글자크기의 1.9배수*/
 font-size:14px;
@@ -98,7 +96,7 @@ font-size:14px;
 .weare-body {
 margin-top:68px;
 }
-.weare-body li{
+.weare-body li {
 text-align:center;
 margin-top:50px;/*게시물사이 간격 li태그 4개 사이간격주기*/
 }
@@ -106,12 +104,14 @@ margin-top:50px;/*게시물사이 간격 li태그 4개 사이간격주기*/
 height:220px;/*이미지는 가로든 세로든 1쪽 크기를 지정하면, 비율을 유지하면서 크기가 조정됩니다.*/
 }
 .weare-body li h2 {
-margin:20px 0px;
-font-size:32px;
-fot-weight:normal;
+margin: 20px 0px;
+font-size:30px;
+font-weight:normal;
+color:#3f51b5;
 }
-.weare-body li p{font-size:14px;}
-/* we are 페이지 영역 끝*/
+.weare-body li p {font-size:14px;}
+/* we are페이지 영역 끝 */
+
 /* work영역 시작 */
 .work-section {
 text-align:center;
@@ -162,17 +162,16 @@ font-weight:normal;
 font-size:14px;
 padding:10px 0px;
 }
-
 /* work영역 끝 */
-/*blog영역 시작*/
-.blog-section:{
+
+/* blog 영역 시작 */
+.blog-section {
 margin-top:30px;
 }
-.blog-section h1{
+.blog-section h1 {
 text-align:center;
 font-size:30px;
 color:#3f51b5;
-font-weight:normal;
 }
 .blog-section .container {
 width:90%;
@@ -181,30 +180,30 @@ margin:0 auto;
 .blog-section li {
 margin-top:30px;
 }
-.blog-section .container {width:90%;margin:0 auto;}
-/*(위)현재 영역을 가운데 정렬시 margin:0 auto; 좌우로 5%로가 자동으로 잡힘*/
-.blog-section li img{
+/*위에서 현재 영역을 가운데정렬시 margin:0 auto; 좌우로 5%가 자동으로 잡힘*/
+.blog-section li img {
 width:100%;
 }
 .blog-section li time {
 display:block;
-margin:1opx 0px;
+margin:10px 0px;
 font-size:12px;
 color:#888;
 }
-.blog-section li h2{
+.blog-section li h2 {
 color:#424242;
 font-weight:normal;
-line-height:1.6;/*줄간격 단위는 현재 글자 크기의 배수*/
+line-height:1.6;/*줄간격단위는 현재 글자크기의 배수*/
 }
-/*rest.css에서 hr태그를 display:none;적용했기 때문에, 특별히 .blog영역에서만 hr적용 */
+/* reset.css 에서 hr태그를 display:none;적용했기 때문에, 특별히 .blog영역에서만 hr 적용 */
 .blog-section hr {display:block; height:1px; background:#3f51b5;}
-/*blog영역 끝*/
-/*contact 영역 시작*/
+/* blog 영역 끝 */
+
+/* contact 영역 시작 */
 .contact-section {
 margin-top:30px;
 }
-.contact-section h1{
+.contact-section h1 {
 font-size:42px;
 text-align:center;
 color:#3f51b5;
@@ -212,31 +211,32 @@ font-weight:normal;
 }
 .contact-section .container {
 width:90%;
-margin:0px auto;/*가운데정렬*/
+margin:0 auto;/*가운데정렬 30px auto 0px; */
 margin-top:30px;
 }
-.contact-section form label {
-display:none;/*모바일에서는 숨기지만, 테블릿이나 pc버전에서는 보이게 설정*/
+.contact-section label {
+display:none;/* 모바일에서는 숨기지만, 테블릿+PC용에서는 보이게 처리예정 */
 }
-.contact-section form input{
+.contact-section form input {
 width:100%;
 line-height:1.2;
 padding:0 2px;
 height:40px;
 border:none;/*테두리 삭제*/
-border-bottom:2px solid #ccc;/*테두리 선 설정: 2px 굵기, solid 실서, dotted 점선. 선색상*/
+border-bottom:2px solid #ccc;/* 테두리 선설정:굵기,solid실선,dotted점선 ,선색상 */
 background:transparent;/*배경색상 투명처리*/
 }
-.contact-section form textarea{
+.contact-section form textarea {
 width:100%;
 background:transparent;
+line-height:1.2;
 border:none;
 border-bottom:2px solid #ccc;
-min-height:100px;/*최소높이를 지정하는 이유는 내용이 없더라도, 높이를 150px로 고정하는 의미*/
+min-height:100px;/*최소높이를 지정하는 이유는 내용이 없더라도, 높이를 100px로 고정하는 의미*/
 padding-top:10px;
-padding-bottom:10px; 
+padding-bottom:10px;
 }
-.contact-section form button{
+.contact-section form button {
 padding:15px;/*여백이 있는 버튼을 만들기*/
 font-size:12px;
 background:#3f51b5;
@@ -244,19 +244,9 @@ color:#fff;
 border:0px;
 }
 .submit-btn {
-margin:10px;
-text-align:right;/*div영역 안의 내용을 좌우 가운데 정렬시키는 명령*/
+margin-top:10px;
+text-align:right;/*div영역안쪽의 내용을 좌우 정렬시키는 명령*/
 }
-/*contact 영역 끝*/
-/*블로그 영역 시작*/
-.blog-section li {
-float:left;/*세로배치가 3개 가로배치로 변함*/
-width:31.59722222222%;/*3개중 1개의 가로크기(x/768)*100=31.597222222%*/
-margin-left:2.604166666666%;/*1개 여백 구하기(x/768)*100=2.6041666%*/
-}
-.blog-section li:first-child{ /*마지막 list가 아래로 떨어지는것을 방지하는 역할*/
-margin-left:0;
-}
-.blog-section hr {display:none;}
-/*블로그 영역 끝*/
+/* contact 영역 끝 */
+
 /* 모바일용 스타일지정 끝 */
