@@ -1,5 +1,14 @@
 @charset "UTF-8";
 /* 모바일용 스타일지정 시작  */
+body {/*부트스트랩css 또는 reset.css에서 최기화 된것을 재정의할때*/
+font-size: 14px;
+background:#fff;
+line-height:1.4;//*상속 바로전에 적용한 값을 초기화 inherit, initial 시키는 역할*/
+}/* 부트스트랩 css 영향을 받은것을 무효화시키고, 사용자 css로 적용*/
+/*부트스트랩css 영향을 받는 부분을 무효화 시키기(아래)*/
+ul{
+	margin-bottom: inherit !important;/*css위치와 상관없이 무조건, 중요하게 적용가능*/
+}
 /* 헤더영역 시작 */
 .header {
 height:80px;
@@ -68,6 +77,7 @@ color:#fff;
 /* 푸터영역 시작 */
 .footer {
 margin-top:30px;
+padding-top:30px;
 }
 .footer p {
 margin: 21px 0px;

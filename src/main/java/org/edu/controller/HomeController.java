@@ -21,16 +21,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	/**
+		private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+		/**
 	 * Simply selects the home view to render by returning its name.
 	 * 루트 / 라는 이름으로 요청을 받으면, home.jsp 파일에 화면출력 (렌더링)이 됩니다.(아래)
 	 * HomeController.java 를 저장하면, 이클립스에서는 HomeController.class 실행파일을 생성
 	 * 저장 시, 콘솔에 보시면 reloading context with name ...is completed.재 실행 문자 나옴.
 	 * .java 클래스는 수정 후 약간 기다린 후 Reloading..메시지 후 결과 확인 가능.
 	 */
+	@RequestMapping(value="/contact",method=RequestMethod.POST)//포스트 방식은 데이터를 전송하는 역살
+	public String contact_send() {
+		//데이터 전송후에 페이지 이동이 필요합니다. 새로고침=자동등록을 방지하기 위해서. 게시판 테러방지용 
+		return "redirect:/blog";/*URL경로를 사용*/
+	}
+	@RequestMapping(value="/contact",method=RequestMethod.GET)//겟방식은 폼페이지를 보여주는 역할
+	public String contact() {
+		return "sample/contact";
+	}
+	@RequestMapping(value="/blog",method=RequestMethod.GET)
+	public String blog() {
+		return "sample/blog";
+	}
+		@RequestMapping(value="/work",method=RequestMethod.GET)
+	public String work() {
+		return "sample/work";		
+	}
+		@RequestMapping(value="/weare",method=RequestMethod.GET)
+	public String weare() {
+		//외부에서 /weare경로로 접근했을때, sample/weare.jsp와 매핑시키라는 의미.
+		return "sample/weare";
+	}
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String index() {//메서드(함수)의 구성은 리턴(반환값 출력)형태지정 메서드명() {구현내용} String index(){}
 		//상단 리퀘스트매핑에서 지정한 결로로 접근을 하게되면, 아래에 있는 index()메서드를 실행

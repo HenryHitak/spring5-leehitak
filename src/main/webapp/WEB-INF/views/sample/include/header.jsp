@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html><!-- 현재문서의 형태선언 -->
 <html><!-- html문서는 태그열고 ~ 태그닫고 하는 영역확인 중요 -->
 <head><!-- 문서내용과는 관계없는 문서정보=메타데이터(데이터의데이터)가 존재 -->
@@ -5,26 +8,34 @@
 <!-- 반응형을 작동하기 위해서 사용하는 메타태그 -->
 <meta name="viewport" content="width=device, initial-scale=1, minimum-scale=1, maximum-scale=1">
 <title>반응형홈페이지</title><!-- 문서의 제목을 브라우저상단왼쪽에 표시 -->
+<!-- 외부 자바스크립트 불러오는 태그(아래) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="/resources/sample/js/user.js"></script>
 <!-- 외부 css파일 불러오는 태그(아래) -->
+
 <link rel="stylesheet" href="/resources/sample/css/reset.css" type="text/css">
 <link rel="stylesheet" href="/resources/sample/css/mobile.css" type="text/css">
 <link rel="stylesheet" href="/resources/sample/css/tablet.css" type="text/css">
 <link rel="stylesheet" href="/resources/sample/css/pc.css" type="text/css">
-<!-- 외부 자바스크립트 부러오는 태그(아래) -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js" ></script>
-<script src="/resources/sample/js/user.js"></script>
 <!-- span태그 자리를 차지하지 않는 영역 = 한뼘 , px 픽셀 화면에 표시되는 크기의 단위 -->
 <!-- :콜론(속성:값, Key:Value), ;세미콜론(문장의 끝) -->
 <style>
-/*PC용 스타일 시작*/
+/*여기까지는 모바일용-아래부터는 태블릿용, PC용*/
+/*PC 스타일 시작*/
+/*미디어쿼리:미디어의 가로크기가 1132px 이상이면 아래 스타일적용*/
 @media all and (min-width:1132px) {
 
 }
-/*PC용 스타일 끝*/
+/*PC 스타일 끝*/
 </style>
 <script>
 /* 자바스크립트 시작 */
-
+$(document).ready(function(){
+		$(".carousel").carousel({         
+			interval:1000,//이미지가 좌우로 움직이는 대기시간 지정
+			pause:false
+		});
+});
 /* 자바스크립트 끝 */
 </script>
 </head>
@@ -33,7 +44,7 @@
 <header class="header">
 <!-- 상단 로고와 햄버거 메뉴영역 시작 -->
 <h1 class="logo">
-<a href="index.html">LOGO</a><!-- a태그는 페이지이동역할, href헤르프 속성값에 URL을 입력해서 이동 -->
+<a href="/">LOGO</a><!-- a태그는 페이지이동역할, href헤르프 속성값에 URL을 입력해서 이동 -->
 </h1><!-- 헤드라인 글자를 표시 h1~h6 -->
 <div class="menu-toggle-btn">
 <span></span>
@@ -45,21 +56,14 @@
 <nav class="gnb"><!-- gnb:글로벌네이게이션:전체영역메뉴  Global Navigagion -->
 <!-- 리스트를 모여주는 태그 ul(UnOrdered List *.~, *.~ ) , ol(Ordered List 1.~, 2.~ ) -->
 <ul>
-<li><a href="index.html">HOME</a></li>
-<li><a href="weare.html">WE ARE</a></li>
-<li><a href="work.html">WORK</a></li>
-<li><a href="blog.html">BLOG</a></li>
-<li><a href="contact.html">CONTACT US</a></li>
+<li><a href="/">HOME</a></li>
+<li><a href="/weare">WE ARE</a></li>
+<li><a href="/work">WORK</a></li>
+<li><a href="/blog">BLOG</a></li>
+<li><a href="/contact">CONTACT US</a></li>
+<li><a href="javascrip:alert('관리자단 준비중 입니다.');">AdminLTE</a></li>
+
 </ul>
 </nav>
 <!-- 상단 로고와 햄버거 메뉴영역 끝 -->
 </header>
-
-<footer class="footer float-clear">
-<!-- 하단 로고 영역 시작 -->
-<p>LOGO</p><!-- 문장영역을 의미하는 Paragraph 태그입니다. -->
-<!-- 하단 로고 영역 끝 -->
-</footer>
-</div>
-</body>
-</html>
