@@ -66,3 +66,4 @@ $(document).ready(function(){
 </nav>
 <!-- 상단 로고와 햄버거 메뉴영역 끝 -->
 </header>
+</div>
