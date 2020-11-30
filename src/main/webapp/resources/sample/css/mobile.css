@@ -78,8 +78,8 @@ color:#fff;
 
 /* 푸터영역 시작 */
 .footer {
-margin-top:30px;
-padding-top:30px;
+padding-top:30px;/*margin-top:30px; 작동하지 않음*/
+background:bisque;
 }
 .footer p {
 margin: 21px 0px;
