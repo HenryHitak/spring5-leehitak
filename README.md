@@ -1,3 +1,16 @@
+####20201202(수)
+- 게시물 관리는 지금 X, 빈 화면 1개 만들어서 바인딩처리 후 헤로쿠 배포
+- 헤로쿠에 배포전에 왼쪽메뉴에서 선택된 메뉴가 무엇인지, active시키는 jquery적용 업로드
+- admin컨트롤러 클래스에서 URL경로와 실제jsp파일과 바인딩 처리
+- jsp파일에서 폼 action속성 (button태그의 submit값)링크경로를 html경로에서 컨트롤러의 바인딩경로로 변경.
+- 게시판 html화면 구현하기 전, 관리자관리 부분 제어용 컨트롤러 클래스 만들고 있습니다.
+- admin/include/header.jsp의 메뉴링크를 html상대경로에서 Admin컨트롤러 절대경로로 변경처리.(아래)
+- /admin/member_list(관리자 관리 메뉴와 Binding), /admin/board_list(게시물관리 메뉴와 바인딩)
+- 데이터를 전송/수신하는 관계는 나중에 진행. URL/JSP만
+- 저장소이름:변수(내용에 변하는 값을 java로 불러옴) / 상수(내용에 정해진 값이 저장)
+- member_ view 마무리
+- member_write 화면작업:부트스트랩참조URL(아래)
+- http://localhost:8080/resources/pages/forms/general.html
 ####20201201(화)
 - html lang="en" 이부분은 PC가 영문 윈도우면 정상.
 - 한글위도우 이기 때문에, html lang="ko"로 변경하면 편리함.
