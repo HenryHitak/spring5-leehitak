@@ -71,7 +71,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr onclick="javascript:location.href='/admin/member_view?user_id=admin';" style="cursor:pointer;">
+                    <tr onclick="javascript:location.href='/admin/member/member_view?user_id=admin';" style="cursor:pointer;">
                       <td><a href="/admin/member/member_view?user_id=admin">admin</a></td>
                       <!-- 위에 a링크값은 리스트가 늘어날 수록 동적으로 user_id값이 변하게 됩니다. 개발자가 jsp처리 -->
                       <td>관리자</td>
@@ -82,7 +82,7 @@
                       <!-- 권한표시는 부트스트랩 뺏지 클래스 사용 -->
                     </tr>
                     <tr>
-                      <td><a href="/admin/member_view?user_id=user">user</a></td>
+                      <td><a href="/admin/member/member_view?user_id=user">user</a></td>
                       <td>사용자</td>
                       <td>user@abc.com</td>
                       <td>false</td>
