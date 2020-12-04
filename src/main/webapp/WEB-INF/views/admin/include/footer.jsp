@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ include file="../include/header.jsp" %>
 <!-- 관리자단 푸터 시작 footer.jsp -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
@@ -80,4 +79,3 @@ $(document).ready(function(){
 </body>
 </html>
 <!-- 관리자단 푸터 끝 -->
-<%@ include file="../include/header.jsp" %>

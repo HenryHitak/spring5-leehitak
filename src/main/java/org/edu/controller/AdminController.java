@@ -15,8 +15,9 @@ public class AdminController {
 		return "admin/board/board_list";
 	}
 	
+	//메서드 오버로딩(예, 동영상 로딩중..., 로딩된 매개변수가 다르면, 메서드 이름을 중복가능)
 	@RequestMapping(value="/admin/member/member_write",method=RequestMethod.POST)
-	public String member_write_do() {
+	public String member_write(@RequestParam("user_name")String user_name) {
 		//아래 GET방식의 폼 출력화면에서 데이터 전송받은 내용을 처리하는 바인딩.
 		//DB베이스 입력/출력/삭제/수정 처리-다음에...
 		return "redirect:/admin/member/member_list";//절대경로로 처리된 이후에 이동할 URL주소를 여기에 반환
@@ -37,13 +38,19 @@ public class AdminController {
 		//위에서 수신한 user_id를 개발자가 만든 user_id2이름으로 member_view.jsp 보냅니다.(아래)
 		//member_view.jsp에서 model로 수신한 데이터 user_id2 를 출력하는 방법은 점심 이후에...
 		
-		model.addAttribute("user_id2", user_id + "<script>alert('메롱');</script> 님");
+		model.addAttribute("user_id2", user_id);
 		return "admin/member/member_view";
 	}
 	
 	@RequestMapping(value="/admin/member/member_list",method=RequestMethod.GET)
-	public String member_list() {
-		return "admin/member/member_list";
+	public String member_list(Model model) {
+		String[][] members = {
+				{"admin","찐관리자","admin@abc.com","2020-12-04","ROLE_ADMIN"},
+				{"user","일반사용자1","user@abc.com","2020-12-04","ROLE_USER"}
+		};
+		//{"user_id":"admin":"user_name":"관리자",...}해시#데이터(그물-낚시)
+		model.addAttribute("members", members);
+		return "admin/member/member_list";//member_list.jsp로 meberssss변수명으로 데이터를 전송
 	}
 	
 	//bind:묶는다는 의미, /admin 요청URL경로와 admin/home.jsp를 묶는다는 의미.

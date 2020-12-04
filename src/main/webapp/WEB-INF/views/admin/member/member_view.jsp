@@ -38,11 +38,11 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <strong><i class="fas fa-book mr-1"></i> user_id</strong>
-                <p class="text-muted">admin</p>
+				<!-- <p class="text-muted">admin</p> -->
                 <p class="text-muted">
                 <!-- jsp에서 자바변수(저장소)를 사용하는 방법 Model로 수신한 $ user_id2 변수명 으로 표시 -->
                 <%-- ${user_id2} 아래 보안코딩 적용 --%>
-                <c:out value="${user_id2}"></c:out>
+                <c:out value="${user_id2}님"></c:out>
                 </p>
                 
 				<hr><!-- horizontal 수평선 태그 -->
