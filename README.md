@@ -1,3 +1,45 @@
+####20201209(수)
+- Rest API방식으로 화면을 처리하는 것이 트랜드
+- 스프링관리자 AdminLTE템플릿 샘플: https://adminlte.io/themes/v3/pages/forms/general.html
+- 오후에는 스프링 관리자단에서 [게시물 관리] 메뉴 webapp/resources/html만들고, -> jsp변환 작업이어서 합니다.
+- prefix(jstl), suffix(servlet-context.xml)
+- prefix ,suffix 그냥 경로의 앞부분 뒷부분 생략가능하게 만드는 역할
+- @RequestMapping...반환값에서 prefix(/WEB-INF/views/)가 사용, suffix(.jsp)
+...
+  return "{prefix}admin/board/board_list{suffix}";
+...
+- 아래에서 사용된 prefix는 생략가능하다.
+- <beans:property name="prefix" value="/WEB-INF/views/" />
+- 아래에서 사용된 suffix는 생략가능하다.
+- <beans:property name="suffix" value=".jsp" />
+- 전체 틀(아래 읽으시면) : 자바이론 공부하신, 아래 데이터 흐름을 제어하는데 사용.
+- 여러명의 회원 정보(MemberVO-자료형클래스를이용부분)를
+- 전달주고받고(MainControler-메서드,URL호출부분),
+- 출력(MemberService-비지니스로직부분)하는 메소드 선언하기
+- 미지의 부분 -----------------------------------------
+- 데이터베이스CRUD처리부분(MemberDAO-데이터베이스엑세스부분)
+- for (MemberVO member : members) {// members여러 레코드중 1개의 레코드를 member오브젝트객체로 대입
+- 1번째반복-> members[0]레코드데이터=>MemberVO member객체벼수 =>출력시 member.toString();
+- 2번째반복-> members[1]레코드데이터=>MemberVO member객체변수 =>출력시 member.toString();
+- 3번째반복-> members[2]레코드데이터=>MemberVO member객체변수 =>출력시 member.toString();
+
+#####20201208(화)
+- Step2.java클래스를 kr.or.member패키지를 만들어서 3개 파일로 분리.
+- 조건문: if, switch ~case문
+- 반복문: for, forEach, while 무한 루프가 위험
+- 제네릭: Generic 일반적인 변수 타입. Map<String, Integer> mapTest = new HashMap<String,Integer>();
+- 자바스크립트에서 콜백함수부분을 애로우 화살표로 대체해서 축약표시 호출 시 자동실행 구현
+- 람다식은 특별한 로직이 없어서 논리적인 내용이 없고, 단순히 코드를 생략할때 애로우, () 익명함수 2개를 사용해서 코드 사용을 축소하는데 의미가 있음.
+- 우리나라 스프링에서는 일반적이진 않지만, 외국에서는 많이 사용. 외국소스를 사용할일이 많음.
+- 제네릭을 사용하는 이유: 코딩작업시 매개 변수의 타입을 제한두고 값을 입출력할때 에러상황 미리 인지하기 위해서
+- 코드 인스펙트: 코드 분석 -> 코드 생성
+- 파일 입출력 처리 마무리 OK.
+- member_list.jsp에서 MemberVO 클래스 테스트 사용 예정(아래).
+- 데이터 타입에 대해서 배열타입과 리스트타입 그리고, 해시타입
+- 2차원 배열타입 변수 -> 클래스오브젝트 배열타입 변수으로 변경 -> 클래스오브젝트 List타입 변수로 변경
+- 
+- 
+- 
 ####20201207(월)
 - 마지막달에 배우는 안드로이드앱도 자바기반의 기술을 이용합니다.
 - 스레드 특징은: 비동기적으로 run이 실행된다. 그래서, 통신프로그램에서 많이 사용.(안드로이드앱)

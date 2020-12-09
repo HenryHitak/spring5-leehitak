@@ -2,22 +2,29 @@ package org.edu.vo;
 
 import java.util.Date;
 
+/**
+ * 회원정보관리용 클래스
+ * @author 김일국 2020-12-04 생성
+ *
+ */
 public class MemberVO {
 	//멤버변수 선언(클래스 전역변수)
-	private String user_id;//프라이빗: 클래스 내부에서만 사용가능, 보안때문
+	private String user_id;//프라이빗: 클래스 내부에서만 사용가능, 보안때문에
 	private String user_pw;
 	private String user_name;
 	private String email;
-	private Integer point;//in(not null) 기본형 -> 참조형은 Integer(null)
-	//member_write.jsp에서 전송값이 point가 빈값으로 올때, int는 에러
-	private Boolean enabled;//불린형은 true, false 중 1
-	private String levels;//오라클에서는 level 이 예약어라서 s 를 붙임
-	private Date reg_date;//Date클래스형 변수를 사용할때, java.util 패키지 임포트
-	private Date update_date;//회원정보 수정일 필드
-	//get,set 메서드가 필요한 이유는 jsp-컨트롤러-서비스-DB
+	private Integer point;//int(not null) 기본형 -> 참조형은 Integer(null가능) 클래스변수
+	//member_write.jsp에서 전송값이 point가 빈값으로 올때,int형에러발생, Integer형은 에러없이 지나감.
+	private Boolean enabled;//불린형은 true, false 2개의 값중 1개.
+	private String levels;//오라클에서는 level이 예약어라서 levels로 변경
+	private Date reg_date;//Date클래스형 변수를 사용할때 java.util패키지를 임포트한다.
+	private Date update_date;//회원정보 수정일 필드.
+	//get,set 메서드가 필요한 이유는 member_list(wirite,update).jsp<-겟셋메서드->컨트롤러<-겟셋메서드->DB
+		
 	public String getUser_id() {
 		return user_id;
 	}
+	
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
@@ -69,6 +76,18 @@ public class MemberVO {
 	public void setUpdate_date(Date update_date) {
 		this.update_date = update_date;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "디버그 MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", email=" + email
+				+ ", point=" + point + ", enabled=" + enabled + ", levels=" + levels + ", reg_date=" + reg_date
+				+ ", update_date=" + update_date + "]";
+	}
+
+	public void setEnabled(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

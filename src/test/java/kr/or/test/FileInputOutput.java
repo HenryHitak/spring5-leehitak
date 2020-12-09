@@ -14,11 +14,15 @@ public class FileInputOutput {
 		//오브젝트, 실행가능한 클래스형 변수 생성, 인스턴스(실행)
 		try {
 			fileInputStream = new FileInputStream("C:\\egov\\workspace\\leehitak\\manifest.yml");
+			fileOutputStream = new FileOutputStream("C:\\egov\\workspace\\leehitak\\manifest_bak.txt");
+			//특수문자를 ""내부에서 사용할때 특수 문자를 문자로 인식하게 하는 역할을 하는 것은 \
 			//fileOutputStream = new FileOutStream("");//신규파일에 저장하는 클래스 명령어 집합
 			//지금 반복문으로 for (시작;끝;증가)만 사용, for 대신에 while(조건동안) {구현을 반복}
 			int byte_content;
 			while( (byte_content = fileInputStream.read()) != -1) {//-1은 문서끝을 읽어들일때까지
 				System.out.println("바이트형 문자 읽어들이기" + (char)byte_content);
+				//read()로 읽어들인 바이트 문자를 manifest_bak.txt. 파일로 저장
+				fileOutputStream.write(byte_content);
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("경로에서 파일을 찾을 수 없습니다." + e.toString());

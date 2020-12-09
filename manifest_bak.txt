@@ -1,0 +1,8 @@
+---
+applications:
+- name: leehitak
+  memory: 1024M
+  disk_quota: 1024M
+  instances: 1
+  host: leehitak
+  domain: paas-ta.org
