@@ -1,7 +1,47 @@
-- 기본정보
+### 기본정보
 - 스프링관리자 AdminLTE템플릿 샘플:
 - https://adminlte.io/themes/v3/pages/forms/general.html
 - https://kimilguk-mysql.herokuapp.com/ (아이디/암호:admin/user02)
+
+20201211(금) 작업
+- 게시판 로직에서 핵심: CRUD기본, 검색기능, 페이징처리로직, 첨부파일 기능
+- 스프링 빈(등록되어서 사용가능하게된 클래스) 이 등록되는 절차(아래)
+- 톰캣서버(WAS)가 실행될때, 로딩 실행되는 파일 순서(아래)
+- web.xml 최초 실행.
+- 1. root-context.xml 실행.
+- 2. servlet(server + let = 서버프로그램): servlet-context.xml 실행.
+- 위 서블렛콘텍스트 안에 있는 component-span 의 패키지에 존재하는 아래 @~클래스를 읽어 들여서 빈으로 등록합니다.(아래)
+- @Controller, @Servcie, @Repository, @RestController(Rest-API)
+- ------------------------------------------------------------------------------------
+- 자바에서 인스턴스 오브젝트를 만들때, ClassName className = new ClassName(); 오브젝트를 만들었음.
+- 스프링에서 오브젝트를 생성하지 않고, 오브젝트를 주입하다고 하고, 기술용어로 DI(Dependency Injection)의존성주입.
+- 의존성주입(DI,외부모듈)할때, @Inject=@Autowired 줄바꿈하고, ClassName className;
+- 위 DI방식으로 SecurityCode클래스를 주입받아서, unscript메서드를 사용하였습니다.
+- 쿼리스트링: 쿼리(질의)스트링(문자열) URL에서 쿼리스트링이라고 하면, URL?키1=값1&key2=value2
+- /admin/board/board_view?bno=${boardVO.bno}
+- BoardVO 클래스 만들기: Admin컨트롤러에서 Model클래스를 이용해서 jsp로 board_list 데이터셋를 보낼때 필요한 클래스 입니다.
+- AdminController 에서 board_list, board_view, board_write 바인드 매핑만들기
+- board_list.jsp, board_view.jsp, board_write.jsp 만들기
+- 앞으로 작업예정 내용 정리(아래)
+- 스프링 테스트 pom.xml 디펜던시 의존성 추가
+- junit(JavaUnit) 테스트 설정 후 기본 unit유닛(단위)테스트
+- jdbc(JavaDataBaseConnection)사용 pom.xml 의존성 추가.
+- Hsql사용 pom.xml 의존성 추가.
+- 마이바티스 사용(CRUD쿼리를관리하는툴) pom.xml 의존성 추가.
+- DB 디버그용 드라이버 사용 pom.xml 의존성 추가.
+- junit으로 DB접근 후 관리자단 회원관리 CRUD unit테스트.
+- 스프링 AOP(관점지향프로그래밍-OOP의 확장기능)기능으로 개발용 디버그출력환경 만들기.
+- 실제 회원관리 화면 CRUD 적용.
+- 실제 게시판 화면 CRUD 적용.
+- 파일업로드 라이브러리 사용 pom.xml 의존성 추가.
+- 게시판 업로드 화면 구현.
+- Json데이터 사용 pom.xml 의존성 추가.
+- 실제 댓글 화면CRUD적용.(우리가 만들어서 제공 Rest-API백엔드단)
+- 사용자단 화면 html 소스를 jsp로 만들기.
+- 스프링시큐리티 로그인 구현 pom.xml 의존성 추가.
+- 사용자단 CRUD 구현.
+- 이후 유효성검사, 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+- 오라클로 마이그레이션 작업.
 ####20201210(목) 작업예정
 - 모달(Modal): 이용자가 팝업대화상자 내용을 종료하기 전에는 다른 화면으로 이동하지 못하는 방식 팝업창.
 - 모달리스(Modeless): : 이용자가 팝업대화상자 내용을 종료하기 전이라도, 현재 팝업창을 띄운상태에서 다른 창으로 이동가능.
