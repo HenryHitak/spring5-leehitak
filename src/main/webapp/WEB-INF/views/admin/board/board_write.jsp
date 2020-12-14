@@ -32,7 +32,7 @@
           <div class="col-12"><!-- 그리드시스템중 12가로칼럼 width:100% -->
           
           <!-- form start -->
-          <form name="write_form" action="/admin/board/board_list" method="post" encType="multipart/form-data">
+          <form name="write_form" action="/admin/board/board_write" method="post" encType="multipart/form-data">
           
           <div class="card card-primary">
               <div class="card-header">
