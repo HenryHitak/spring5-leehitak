@@ -2,7 +2,81 @@
 - 스프링관리자 AdminLTE템플릿 샘플:
 - https://adminlte.io/themes/v3/pages/forms/general.html
 - https://kimilguk-mysql.herokuapp.com/ (아이디/암호:admin/user02)
+####20201215(화) 작업
+
 ####20201214(월) 작업
+#### pom.xml 마이바티스 설정 버전업 과 JUnit 사용처리
+- 참조: https://github.com/coddingbear/spring_web_project/blob/master/Part03/ex02_ctx/pom.xml
+
+```
+<!-- Mysql 데이터베이스 사용 -->
+<dependency>
+	<groupId>mysql</groupId>
+	<artifactId>mysql-connector-java</artifactId>
+	<version>5.1.35</version>
+</dependency>
+<!-- 마이바티스 사용 --> 
+<dependency>
+	<groupId>org.mybatis</groupId>
+	<artifactId>mybatis</artifactId>
+	<version>3.4.6</version>
+</dependency>
+<dependency>
+	<groupId>org.mybatis</groupId>
+	<artifactId>mybatis-spring</artifactId>
+	<version>1.3.2</version>
+</dependency>
+```
+#### web.xml 서블릿 버전 3.1로 변경
+- 기술참조: https://mangkyu.tistory.com/12
+
+```
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+    version="3.1">
+```
+#### pom.xml 메이븐 설정 파일에서 모듈 버전 업
+- 아래 6가지 변경 기술참조: https://pmadvisor.tistory.com/3
+```
+<properties>
+	<java-version>1.8</java-version>
+	<org.springframework-version>5.2.5.RELEASE</org.springframework-version>
+	<org.aspectj-version>1.9.0</org.aspectj-version>
+	<org.slf4j-version>1.7.25</org.slf4j-version>
+</properties>
+<dependency>
+	<groupId>log4j</groupId>
+	<artifactId>log4j</artifactId>
+	<version>1.2.16</version>
+</dependency>
+<!-- Servlet -->
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>javax.servlet-api</artifactId>
+	<version>3.1.0</version>
+	<scope>provided</scope>
+</dependency>
+<dependency>
+	<groupId>javax.servlet.jsp</groupId>
+	<artifactId>javax.servlet.jsp-api</artifactId>
+	<version>2.3.0</version>
+	<scope>provided</scope>
+</dependency>
+<!-- Test -->
+<dependency>
+	<groupId>junit</groupId>
+	<artifactId>junit</artifactId>
+	<version>4.12</version>
+	<scope>test</scope>
+</dependency>   
+<!-- 파일업로드 라이브러리 -->
+<dependency>
+	<groupId>commons-fileupload</groupId>
+	<artifactId>commons-fileupload</artifactId>
+	<version>1.3.3</version>
+</dependency>
+```
 - ibatis(아이바티스-쿼리생성이불편) -> mybatis(마이바티스-쿼리생성이편리)
 - 지금하시는 작업은 개발시작전 준비단계....
 - JUnit테스트(자바단위테스트): 하는목적은 jsp(컨트롤러) 힘빼기전에 CRUD테스트해보고 힘빼라는 작업방식.
@@ -44,7 +118,6 @@
 - [수업공지]:앞으로는 수업종료 10분 전에 질문/답변 시간을 갖는것이 어떨까 합니다.
 - 이유는 수업진행 중간에 질문/답변 하기엔 약간 부담스러운 내용이 있을 수 있기 때문에, ^^
 - 질문 내용이 무엇이 되었든, 종료 10분 전에 답변을 들으실 수 있는 시간을 갖도록 하겠습니다.
-20201211(금) 작업
 20201211(금) 작업
 - 첨부파일 설정: servlet-context.xml
 - 게시판 로직에서 핵심: CRUD기본, 검색기능, 페이징처리로직, 첨부파일 기능
