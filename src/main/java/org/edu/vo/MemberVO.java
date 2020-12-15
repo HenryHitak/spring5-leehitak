@@ -83,11 +83,5 @@ public class MemberVO {
 				+ ", point=" + point + ", enabled=" + enabled + ", levels=" + levels + ", reg_date=" + reg_date
 				+ ", update_date=" + update_date + "]";
 	}
-
-	public void setEnabled(boolean b) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }
