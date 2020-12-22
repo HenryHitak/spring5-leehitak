@@ -34,6 +34,6 @@ public class MemberVO {
 
 	@Override//클래스값을 가지고 있는데 값이 올바르게 담겨있는 지 로그를 확인할 때  toString()
 	public String toString() {
-		return "디버그용 MemberVO [name=" + name + ", age=" + age + ", phoneNum=" + phoneNum + "]";
+		return "디버그용 MemberVO [name=" + name + ", age=" + age + "(세), phoneNum=" + phoneNum + "]";
 	}
 }

@@ -3,15 +3,18 @@ package org.edu.service;
 import java.util.List;
 
 import org.edu.vo.MemberVO;
+import org.edu.vo.PageVO;
 
 /**
- * IF_MemberService클래스는 DAO를 호출하는 역할
- * @author gmlxk
+ * IF_MemberService클래스는 DAO를 호출하는 역할입니다.
+ * @author gmlxkr
  *
  */
 public interface IF_MemberService {
-	public List<MemberVO> selectMember(String search_type, String search_keyword) throws Exception;
-	public void insertMember(MemberVO memberVO) throws Exception;
+	public int countMember(PageVO pageVO) throws Exception;
+	public List<MemberVO> selectMember(PageVO pageVO) throws Exception;
+	public MemberVO readMember(String user_id) throws Exception;
 	public void deleteMember(String user_id) throws Exception;
-	//throws 스프링을 예외로 보내면, 나중에 예외처리 전용 error.jsp를 만들어서 에러 메세지를 전송하는 사용자단을 사용
+	//업데이트 후 member_view.jsp 이동(아래)
+	public void updateMember(MemberVO memberVO) throws Exception;
 }
