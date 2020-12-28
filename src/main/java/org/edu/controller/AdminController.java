@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.edu.service.IF_BoardService;
 import org.edu.service.IF_MemberService;
 import org.edu.util.SecurityCode;
 import org.edu.vo.BoardVO;
@@ -31,6 +32,9 @@ public class AdminController {
 	SecurityCode securityCode;
 	
 	@Inject
+	IF_BoardService boardService;//게시판인터페이스를 주입받아서 boardService오브젝트 생성.
+	
+	@Inject
 	IF_MemberService memberService;//멤버인터페이스를 주입받아서 memberService오브젝트 변수를 생성.
 	
 	@RequestMapping(value="/admin/board/board_write",method=RequestMethod.GET)//URL경로
@@ -44,54 +48,66 @@ public class AdminController {
 		return "redirect:/admin/board/board_list";
 	}
 	@RequestMapping(value="/admin/board/board_view", method=RequestMethod.GET)
-	public String board_view(@RequestParam("bno") Integer bno, Model model) throws Exception {
+	public String board_view(@ModelAttribute("pageVO") PageVO pageVO, @RequestParam("bno") Integer bno, Model model) throws Exception {
 		//jsp로 보낼 더미 데이터 boardVO에 담아서 보낸다.
 		//실제로는 아래처럼 더미데이터를 만드것이 아닌
 		//쿼리스트링(질의문자열)로 받아온 bno(게시물 고유번호)를 이용해서 DB에서
 		//select * from tbl_boarad where bno = ? 마이바티스 실행이 된 결과값이 BoardVO형으로 받아서 jsp보내줌.
 		//'3', '새로운 글을 넣습니다. ', '새로운 글을 넣습니다. ', 'user00', '2019-10-10 12:25:36', '2019-10-10 12:25:36', '0', '0'
-		BoardVO boardVO = new BoardVO();
-		boardVO.setBno(1);
-		boardVO.setTitle("첫번째 게시물 입니다.");
-		String xss_data = "첫번째 내용 입니다.<br><br><br>줄바꿈 처리입니다. <script>location.href('http://naver.com');</script>";
-		boardVO.setContent(securityCode.unscript(xss_data));
-		boardVO.setWriter("admin");
-		Date reg_date = new Date();
-		boardVO.setReg_date(reg_date);
-		boardVO.setView_count(2);
-		boardVO.setReply_count(0);
+		/*
+		 * BoardVO boardVO = new BoardVO(); boardVO.setBno(1);
+		 * boardVO.setTitle("첫번째 게시물 입니다."); String xss_data =
+		 * "첫번째 내용 입니다.<br><br><br>줄바꿈 처리입니다. <script>location.href('http://naver.com');</script>"
+		 * ; boardVO.setContent(securityCode.unscript(xss_data));
+		 * boardVO.setWriter("admin"); Date reg_date = new Date();
+		 * boardVO.setReg_date(reg_date); boardVO.setView_count(2);
+		 * boardVO.setReply_count(0);
+		 */
+		BoardVO boardVO = boardService.readBoard(bno);
+		//시큐어코딩 시작
+				String xss_data = boardVO.getContent();
+				boardVO.setContent(securityCode.unscript(xss_data));
+				//시큐어코딩 끝
 		model.addAttribute("boardVO", boardVO);
 		return "admin/board/board_view";
 	}
 	@RequestMapping(value="/admin/board/board_list",method=RequestMethod.GET)
-	public String board_list(Model model) throws Exception {
+	public String board_list(@ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
 		//테스트용 더미 게시판 데이터 만들기(아래)
-		BoardVO input_board = new BoardVO();
-		input_board.setBno(1);
-		input_board.setTitle("첫번째 게시물 입니다.");
-		input_board.setContent("첫번째 내용 입니다.<br>줄바꿈했습니다.");
-		input_board.setWriter("admin");
-		Date reg_date = new Date();
-		input_board.setReg_date(reg_date);
-		input_board.setView_count(2);
-		input_board.setReply_count(0);
-		BoardVO[] board_array = new BoardVO[2];
-		//input_board = {1,"첫번째 게시물 입니다.","첫번째 내용 입니다.<br>줄바꿈했습니다.","admin",now(),2,0};
-		board_array[0] = input_board;
-		//------------------------------------
-		BoardVO input_board2 = new BoardVO();
-		input_board2.setBno(2);
-		input_board2.setTitle("두번째 게시물 입니다.");
-		input_board2.setContent("두번째 내용 입니다.<br>줄바꿈했습니다.");
-		input_board2.setWriter("user02");
-		input_board2.setReg_date(reg_date);
-		input_board2.setView_count(2);
-		input_board2.setReply_count(0);
-		//input_board2 = {2,"두번째 게시물 입니다.","두번째 내용 입니다.<br>줄바꿈했습니다.","user02",now(),2,0};
-		board_array[1] = input_board2;
-		//-------------------------------------
-		List<BoardVO> board_list = Arrays.asList(board_array);//배열타입을 List타입으로 변경절차.
+		/*
+		 * BoardVO input_board = new BoardVO(); input_board.setBno(1);
+		 * input_board.setTitle("첫번째 게시물 입니다.");
+		 * input_board.setContent("첫번째 내용 입니다.<br>줄바꿈했습니다.");
+		 * input_board.setWriter("admin"); Date reg_date = new Date();
+		 * input_board.setReg_date(reg_date); input_board.setView_count(2);
+		 * input_board.setReply_count(0); BoardVO[] board_array = new BoardVO[2];
+		 * //input_board =
+		 * {1,"첫번째 게시물 입니다.","첫번째 내용 입니다.<br>줄바꿈했습니다.","admin",now(),2,0};
+		 * board_array[0] = input_board; //------------------------------------ BoardVO
+		 * input_board2 = new BoardVO(); input_board2.setBno(2);
+		 * input_board2.setTitle("두번째 게시물 입니다.");
+		 * input_board2.setContent("두번째 내용 입니다.<br>줄바꿈했습니다.");
+		 * input_board2.setWriter("user02"); input_board2.setReg_date(reg_date);
+		 * input_board2.setView_count(2); input_board2.setReply_count(0); //input_board2
+		 * = {2,"두번째 게시물 입니다.","두번째 내용 입니다.<br>줄바꿈했습니다.","user02",now(),2,0};
+		 * board_array[1] = input_board2; //-------------------------------------
+		 * List<BoardVO> board_list = Arrays.asList(board_array);//배열타입을 List타입으로 변경절차.
+		 */
+		// selectBoard마이바티스쿼리를 실행하기전에 set이 발생해야 변수값이 할당됩니다.(아래)
+		// PageVO의 queryStartNo구하는 계산식 먼저 실행되어서 변수값이 발생되어야 합니다.
+		if(pageVO.getPage() == null) {//int 일때 null체크에러가 나와서 pageVO의 page변수형 Integer로벼경.
+			pageVO.setPage(1);
+		}
+		pageVO.setPerPageNum(8);//리스트하단에 보이는 페이징번호의 개수
+		pageVO.setQueryPerPageNum(10);//쿼리에서 1페이지당 보여줄 게시물수 10개로 입력 놓았습니다.
+		//검색된 전체 게시물수 구하기 서비스 호출
+		int countBoard = 0;
+		countBoard = boardService.countBoard(pageVO);
+		pageVO.setTotalCount(countBoard);//11x개 전체 게시물 수를 구한 변수 값 매개변수로 입력하는 순간 calcPage()메서드실행.
+		
+		List<BoardVO> board_list = boardService.selectBoard(pageVO);
 		model.addAttribute("board_list", board_list);
+		//model.addAttribute("pageVO", pageVO);//@ModelAttribute 애노테이션으로 대체
 		return "admin/board/board_list";
 	}
 	
@@ -108,6 +124,7 @@ public class AdminController {
 	public String member_write() throws Exception {
 		return "admin/member/member_write";
 	}
+	
 	@RequestMapping(value="/admin/member/member_update",method=RequestMethod.GET)
 	public String member_update(@RequestParam("user_id") String user_id, @ModelAttribute("pageVO") PageVO pageVO, Model model) throws Exception {
 		//GET방식으로 업데이트 폼파일만 보여줍니다.
@@ -115,7 +132,7 @@ public class AdminController {
 		model.addAttribute("memberVO", memberVO);
 		return "admin/member/member_update";
 	}
-
+	
 	@RequestMapping(value="/admin/member/member_update",method=RequestMethod.POST)
 	public String member_update(PageVO pageVO, MemberVO memberVO) throws Exception {
 		//POST방식으로 넘어온 값을 DB수정처리하는 역할
@@ -123,6 +140,7 @@ public class AdminController {
 		//redirect를 사용하는 목적은 새로고침 했을때, 위 updateMember메서드를 재 실행방지 목적입니다.
 		return "redirect:/admin/member/member_view?page="+pageVO.getPage()+"&user_id=" + memberVO.getUser_id();
 	}
+	
 	@RequestMapping(value="/admin/member/member_delete",method=RequestMethod.POST)
 	public String member_delete(RedirectAttributes rdat, @RequestParam("user_id") String user_id) throws Exception {
 		memberService.deleteMember(user_id);
