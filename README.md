@@ -2,6 +2,9 @@
 - 스프링관리자 AdminLTE템플릿 샘플:
 - https://adminlte.io/themes/v3/pages/forms/general.html
 - https://kimilguk-mysql.herokuapp.com/ (아이디/암호:admin/user02)
+#### 톰캣 서버 강제 종료시키기
+- netstat -ano | findstr 8080 : 특정 포트로 검색
+- taskkill /F /PID 위에서출력된 제일오른쪽번호 : PID를 통해 작동중인 프로그램 종료
 #### 스프링 작업순서
 - 스프링 HelloWorld MVC 프로젝트 edu.org.controller 제작OK.
 - wamp(만세아이콘)으로 마리아DB 설치, 사용자암호 추가 및 한글처리OK.
@@ -19,6 +22,8 @@
 - DB 디버그용 드라이버 사용 pom.xml 의존성 추가.
 - 스프링 AOP(관점지향프로그래밍-OOP의 확장기능)기능으로 개발용 디버그출력환경 만들기.
 - 실제 회원관리 화면 CRUD 적용.
+- 관리자단 실제 게시판 화면 CRUD 적용OK.
+- 트랜잭션 @Tansactional추가: root-context.xml에서 dataSource에 트랜잭션 설정추가필수OK.
 - 실제 게시판 화면 CRUD 적용.
 - 파일업로드 라이브러리 사용 pom.xml 의존성 추가.
 - 게시판 업로드 화면 구현.
@@ -30,6 +35,18 @@
 - 사용자단 CRUD 구현.
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사, 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+#### 20201230(수) 작업예정
+- 관리자단 게시판 업로드 화면 구현.
+- 관리자단 댓글 처리 시작...
+#### 20201229(화) 작업
+- input type="file" name="file" 바로 DB테이블에 저장할 수 없습니다.
+- save_file_name, real_file_name 이런 테이블필드에 저장하기전에 전처리 과정이 필요합니다.
+- 첨부파일 등록시 전처리 과정: (아래)
+- 전처리 과정 1. 서버에 저장공간(폴더)에 save_file_name이름으로 .jpg, .hwp, .xls 저장되는 기능필요
+- 전처리 과정 2. 물리DB테이블에 save_file_name필드, real_file_name필드, bno게시물번호필드 에 저장되는 기능필요
+- 데이터흐름: 물리DB(필드명) - DAO - Service - Controller - JSP(input태그의 name속성)
+-          BoardVO(멤버변수명와 위 5군데 Get/Set 이 가능하려면, 이름이 동일해야함. 필수조건)
+- 관리자단 게시판 CRUD작업 중 어제 Read작업 확인(첨부파일 다운로드는 아래 insert작업 후 다시 확인)
 #### 20201228(월) 작업
 - resources/home폴더의 디자인html파일에서 댓글달기 html은 같이 작업예정.
 - 위 home폴더 내용을 jsp로 변경처리 후 스프링과 연동하는 작업이 진행됩니다.
