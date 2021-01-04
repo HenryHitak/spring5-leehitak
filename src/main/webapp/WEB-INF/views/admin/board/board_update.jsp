@@ -27,19 +27,19 @@
     <!-- 본문내용 Main content -->
     <section class="content">
       <div class="container-fluid">
-
+        
         <div class="row"><!-- 부트스트랩의 디자인 클래스 row -->
           <div class="col-12"><!-- 그리드시스템중 12가로칼럼 width:100% -->
-
+          
           <!-- form start -->
           <form name="update_form" action="/admin/board/board_update" method="post" encType="multipart/form-data">
-
+          
           <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">UPDATE Board</h3>
               </div>
               <!-- /.card-header -->
-
+              
                 <div class="card-body">
                   <div class="form-group">
                     <label for="title">title</label>
@@ -49,7 +49,7 @@
                   </div>
                   <div class="form-group">
                   	<label for="content">Content</label>
-                  	<textarea rows="5" name="content" id="content" class="form-control">${boardVO.content}</textarea>
+                  	<textarea rows="5" name="content" id="content" class="form-control"><c:out value="${boardVO.content}" /></textarea>
                   	<!-- 필수입력 값은 html5에서 지원하는 유효성 검사중 required 속성을 사용해서 빈(null)값체크(유효성검사)를 합니다. -->
                   </div>
                   <div class="form-group">
@@ -59,18 +59,35 @@
                   <div class="form-group" style="margin-bottom:0px;">
                   <label>attach</label>
                   </div>
-                  <div class="custom-file">
-                    <input type="file" name="file" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile" style="color:#999;">파일첨부</label>
-                  </div>
+                  <c:forEach var="index" begin="0" end="1">
+                  <div class="div_file_delete"><!-- 폴더삭제+DB삭제+화면삭제용 div영역지정 -->
+                  	<div class="custom-file">
+                    <input type="file" name="file" class="custom-file-input" id="customFile_${index}">
+                    <label class="custom-file-label" for="customFile_${index}" style="color:#999;">파일첨부${index}</label>
+	                </div>
+	                <c:if test="${boardVO.save_file_names[index] != null}">
+			              <strong><i class="far fa-save mr-1"></i> 첨부파일${index}</strong>
+			              <p class="text-muted">
+			              <a href="/download?save_file_name=${boardVO.save_file_names[index]}&real_file_name=${boardVO.real_file_names[index]}">
+			              ${boardVO.real_file_names[index]}-파일다운로드
+			              </a>
+			              &nbsp;
+			              <input type="hidden" name="save_file_name" value="${boardVO.save_file_names[index]}" >
+			              <button type="button" class="btn btn-info btn_file_delete">삭제</button>
+			              </p>
+		            </c:if>
+		            <hr>
+		          </div>
+                  </c:forEach>
+                  
                 </div>
                 <!-- /.card-body -->
-
+              
            </div>
-
+          
           <!-- 버튼영역 시작 -->
             <div class="card-body">
-            	<a href="/admin/board/board_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
+            	<a href="/admin/board/board_view?page=${pageVO.page}&bno=${boardVO.bno}" class="btn btn-primary float-right mr-1">뷰화면이동</a>
               	<button type="submit" class="btn btn-danger float-right mr-1">SUBMIT</button>              	
               	<!-- a태그는 링크이동은 되지만, post값을 전송하지는 못합니다. 그래서, button태그를 사용. -->
             </div>
@@ -79,10 +96,10 @@
           <input type="hidden" name="page" value="${pageVO.page}">
           </form>
           <!-- 폼내부에 버튼이 있어야지만, 전송버튼이 작동 됩니다. -->
-
+          
           </div>
         </div>
-
+        
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
@@ -125,4 +142,31 @@ $(document).ready(function(){
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	});
 });//textarea 중 content아이디영역을 섬머노트에디터로 변경처리 함수실행
-</script> 
+</script>
+<script>
+$(document).ready(function(){
+	$(".btn_file_delete").on("click",function(){
+		if(confirm("선택한 첨부파일을 삭제 하시겠습니까?")) {
+			//alert("디버그");
+			var click_element = $(this);//클릭한 현재 엘리먼트(삭제버튼)
+			var save_file_name = click_element.parent().find('input[name=save_file_name]').val();
+			//alert("디버그: 삭제할 파일명은 " + save_file_name);return false;
+			$.ajax({
+				type:"post",//get방식으로 지우면, 누구나 아래 URL입력시 지우는것이 가능함.
+				url:"/file_delete?save_file_name="+save_file_name,//RestAPI컨트롤러호출
+				dataType:"text",
+				success:function(result){
+					if(result=="success") {//실제파일+DB테이블삭제 후 화면에서도 삭제처리(아래)
+						click_element.parents(".div_file_delete").remove();
+					}
+				},
+				error:function(result){
+					alert("RestAPI접근에 실패했습니다.");
+					//click_element.parents(".div_file_delete").remove();//디버그
+				}
+			});			
+		}//confirm끝
+		
+	});
+});
+</script>

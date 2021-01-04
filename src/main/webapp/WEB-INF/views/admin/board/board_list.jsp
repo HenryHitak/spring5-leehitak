@@ -40,7 +40,7 @@
                   <div class="input-group input-group-sm">
                     <!-- 부트스트랩 템플릿만으로는 디자인처리가 부족한 경우가 있기 때문에 종종 인라인 스타일 사용 -->
                     <div>
-                           <select name="search_type" class="form-control">
+                        <select name="search_type" class="form-control">
                             <option value="all" selected>-전체-</option>
                             <option value="title" data-select2-id="8">제목</option>
                             <option value="content" data-select2-id="16">내용</option>
@@ -73,9 +73,13 @@
                   </thead>
                   <tbody>
                   <!-- jstl core를 갖다쓰는 이유는 향상된 for반복문을 사용하기 위해서 지정(아래) -->
-                  <c:forEach items="${board_list}" var="boardVO">
+                  <c:forEach items="${board_list}" var="boardVO" varStatus="status">
                   	<tr>
-                      <td>${boardVO.bno}</td>
+                      <td>
+                      <!-- ${boardVO.bno} 대신에 보기편한 넘버링으로 변환(아래 계산식 사용) -->
+                      <!-- 전체게시물-(현재페이지x1페이지당보여줄개수)+1페이지당보여줄개수-현재인덱스값 -->
+                      ${pageVO.totalCount-(pageVO.page*pageVO.queryPerPageNum)+pageVO.queryPerPageNum-status.index}
+                      </td>
                       <!-- 아래 a링크값은 리스트가 늘어날 수록 동적으로 bno값이 변하게 됩니다. 개발자가 jsp처리 -->
                       <td><a href="/admin/board/board_view?page=${pageVO.page}&bno=${boardVO.bno}">
                       <!-- c:out 사용하는 이유는 메롱을 방지하기 위해서 시큐어코딩처리 -->
@@ -114,13 +118,13 @@
             <!-- 페이징처리 시작 -->
             <div class="pagination justify-content-center">
             	<ul class="pagination">
-            	   	 <c:if test="${pageVO.prev}">
+            	 <c:if test="${pageVO.prev}">
 	            	 <li class="paginate_button page-item previous" id="example2_previous">
 	            	 <a href="/admin/board/board_list?page=${pageVO.startPage-1}&search_type=${pageVO.search_type}&search_keyword=${pageVO.search_keyword}" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
 	            	 </li>
 	            	 <!-- 위 이전게시물링크 -->
             	 </c:if>
-
+            	 
             	 <!-- jstl for문이고, 향상된 for문이아닌 고전for문으로 시작값, 종료값 var변수idx는 인덱스값이 저장되어 있습니다. -->
             	 <c:forEach begin="${pageVO.startPage}" end="${pageVO.endPage}" var="idx">
             	 	<li class='paginate_button page-item <c:out value="${idx==pageVO.page?'active':''}" />'>
@@ -135,7 +139,7 @@
             	 </c:if>
             	 </ul>
             </div>
-	  		<!-- 페이징처리 끝 -->     
+	  		<!-- 페이징처리 끝 -->
             
           </div>
         </div>
