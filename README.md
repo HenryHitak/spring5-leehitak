@@ -39,9 +39,38 @@
 - 사용자단 CRUD 구현.
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사, 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
-####20200106(수) 작업예정
-- 부메랑을 이용해서 댓글 CRUD 테스트 마무리.
-- 댓글 페이징처리(매퍼쿼리 ~ 컨트롤러까지 )
+####20200107(목) 작업예정
+- 댓글 jsp에서 Ajax,jQuery사용해서 CRUD처리 마무리.
+- 입사지원시 코딩테스트 할때 아래처럼 기초이론을 구현해보라는 요구사항 때문에 정리(아래)
+- Ps.싱글톤이 사용되는 이유참조: https://shxrecord.tistory.com/132
+- Ps.싱글톤 빈(스프링)에 대해서(1개의 빈은 1개의 빈객체만 생성해서 사용하겠다명시)
+- https://m.blog.naver.com/PostView.nhn?blogId=sksk3479&logNo=221175889439&proxyReferer=https:%2F%2Fwww.google.com%2F
+- Ps.싱글톤 클래스(자바)에 대해서(1개의 클래스는 1개의 인스턴스만 생성해서 사용하겠다명시)
+- 우리가 사용한 경우: 달력 인스턴스 생성. Calendar.getInstance() 참조정보(아래)
+- https://m.blog.naver.com/PostView.nhn?blogId=heartflow89&logNo=221001179016&proxyReferer=https:%2F%2Fwww.google.com%2F
+class Singleton{
+	private static Singleton instance = new Singleton(); // 정적필드 / 인스턴스 생성 
+	private Singleton(){} // private 생성자
+	public static Singleton getInstance(){ // getInstance 메서드 정의
+		return instance; // instance 객체 리턴
+	}
+}
+public class SingletonEx {
+	public static void main(String[] args) {
+		Singleton st1 = Singleton.getInstance(); // 싱글톤 인스턴스 호출
+		Singleton st2 = Singleton.getInstance();
+//		Singleton st3 = new Singleton(); // 생성자 이용 인스턴스 생성 불가
+		if(st1 == st2){
+			System.out.println("동일 객체");
+		}else{
+			System.out.println("다른 객체");
+		}
+	}
+}
+####20200106(수) 작업
+- 파스타는 2주 사용기간 제한 없어질때 까지 이용하는 것은 보류, 헤로쿠(Hsql데이터베이스)사용-스프링시큐리티(*로그인)적용 한 이후에 헤로쿠에 올리겠습니다.
+- 부메랑을 이용해서 댓글 CRUD 테스트 마무리OK.
+- 댓글 페이징처리(매퍼쿼리 ~ 컨트롤러까지 ) - 부메랑 reply_list/10(게시물번호)/1(페이지번호)테스트 OK.
 - jsp에서 Ajax+제이쿼리 화면처리 마무리.
 ####20200105(화) 작업
 - 부메랑(크롬의 플러그인): JUnit(스프링-자바단위테스트=CRUD테스트)과 같은 역할. RestAPI의 단위테스트(CRUD테스트)를 할때 사용 한 이후 댓글 클래스 작업을 시작 합니다.
