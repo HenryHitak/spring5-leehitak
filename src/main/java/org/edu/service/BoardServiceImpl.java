@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.edu.dao.IF_BoardDAO;
+import org.edu.dao.IF_ReplyDAO;
 import org.edu.vo.BoardVO;
 import org.edu.vo.PageVO;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service //스프링빈으로 사용하기 위해서 애노테이션 명시
 public class BoardServiceImpl implements IF_BoardService {
 
+	@Inject //댓글 DAO클래스 주입
+	private IF_ReplyDAO replyDAO; 
+	
 	@Inject //DAO클래스를 주입받아서 사용변수 생성
 	private IF_BoardDAO boardDAO;
 	
@@ -52,10 +56,10 @@ public class BoardServiceImpl implements IF_BoardService {
 		// 첨부파일 등록 DAO연결(아래)
 		String[] save_file_names = boardVO.getSave_file_names();
 		String[] real_file_names = boardVO.getReal_file_names();
-		//배열첨부파일이 여러개일때 상황 대비
+		//첨부파일이 여러개일때 상황 대비
 		int index = 0;
 		String real_file_name = "";
-		if(save_file_names == null) { return; } //배열첨부파일이 없으면 진행 빠져나감.
+		if(save_file_names == null) { return; }//배열첨부파일이 없으면 진행 빠져나감.
 		for(String save_file_name:save_file_names) {//첨부파일 1개일때는 1번만 반복됩니다.
 			if(save_file_name != null) {//첨부파일배열에서 배열값이 있는경우만
 				real_file_name = real_file_names[index];
@@ -70,6 +74,7 @@ public class BoardServiceImpl implements IF_BoardService {
 	public void deleteBoard(Integer bno) throws Exception {
 		// 첨부파일 삭제 후 게시물 삭제 DAO연결(아래)
 		boardDAO.deleteAttachAll(bno);
+		replyDAO.deleteReplyAll(bno);
 		boardDAO.deleteBoard(bno);
 	}
 
@@ -89,8 +94,8 @@ public class BoardServiceImpl implements IF_BoardService {
 			if(save_file_name != null) {
 				real_file_name = real_file_names[index];
 				boardDAO.updateAttach(save_file_name, real_file_name, bno);
+				index = index + 1;
 			}
-			index = index + 1;
 		}
 	}
 

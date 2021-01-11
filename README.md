@@ -39,6 +39,65 @@
 - 사용자단 CRUD 구현.
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사, 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+####20210112(화) 작업예정
+- 메이븐 업데이트 하신 분들 프로젝트 context-root경로 / 로 변경해 주세요^^
+- 스프링시큐리티 설정(security-context.xml)내용 추가
+- 로그인 페이지 및 로그인 클래스 구현(세션처리)
+- 사용자단, 게시판/RestApi댓글 CRUD처리.
+- 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
+- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
+- 헤로쿠(URL)에 배포(HsqlDB로 배포, 메이븐 외부 라이브러리 추가필수 pom.xml수정)
+####20210111(월) 작업
+- 이론은 ch12 시작 예정.
+- ch11: DTO(DataTansperObject) = DAO(DataAccessObject)
+- 웹프로그램이 작동되는 순서:
+- 톰캣(server,web,context 3개xml 순서대로 실행)
+-> 스프링시작 순서 : web.xml:404 file not fount,500,400 에러표시)
+-> root-context -> servlet-context(여기서부터 스프링에러표시)
+- 사용자단 html을 jsp로 변경 처리: board폴더부분 jsp 변환.
+- 공통error.jsp 추가(인터셉터 클래스 이용)
+- 인터셉터하는 목적: 스프링에서 에러가 발생시 에러내용을 가로채서 개발자가 만든 error.jsp로 출력하는 목적.
+- 스프링시큐리티 적용한 로그인 처리(필수기술).
+- web.xml에서 웹필터기능 추가가 필요한 이유: web.xml은 스프링 서블렛 진입전에 실행되는 기능이기 때문에, 스프링 보안에서 스프링 서블렛프로그램(스프링웹프로젝트)실행전에 인증과 권한을 URL기반으로 체크하기 위해서 필터기능이 필요합니다.
+- 스프링 시큐리티 필터기능말고, 대표적인 필터기능솔루션은 글작성시 욕설방지기능 필터 기능으로 작성.
+- 스프링 시큐리티 2가지 기능: 인증기능(로그인체크기능-암호화), 권한기능(권한체크)
+- 네이아이디로그인(SSO)RestAPI는 인증만 가능하기 때문에, 사용이 가능. 권한은 개발자 코드로 부여.
+----------------- 2월 3일까지(위 과제물 제출) ---------------------
+- 위 과정이 끝나면, 위 프로젝트, Mysql(마리아DB)로 작성된 소스를 오라클로 마이그레이션(오라클설치및 사용자생성 및 암호추가)
+- 문서작업(완료보고서작업) : 이력서 제출서 사용.
+- IoT(노드MCU보드:아두이노계열)로 임베디드 프로그램 실습.(코로나19상황일때 일주일정도 실습 나와서 합니다. 라즈베리파이 임베디드 리눅스 프로그램=팀작업X-개인작업으로 전환)
+- 안드로이드 스튜디오를 이용해서 안드로이드앱1 제작 후 IoT장비와 통신
+- 안드로이드앱2 제작 후 위 스프링프로젝트외 RestApi통신 회원 정보 조회 및 삭제 처리 기능 실습.
+- 위 앱 제작 실습시 스프링프로젝트 RestAPI서버 컨트롤러 제작 실습을 합니다.
+- 입사지원 시간(사람인 사이트에 이력서 제출): 취업활동.
+- Ps.앱(임베디드)분야 취업하시기에는 1달로 부족합니다. 임베디드 분야로 취업을 원하시는 학생은 개인적으로 더 공부 하셔야 합니다. 그래도, 이과목을 공부하시는 이유는 스프링(자바)에서 일하시다가 임베디드쪽의 일을 하시게 되기 때문에, 그 때 사용하시라고 기술을 배우시게 됩니다.
+- pom.xml 메이븐(프로그램배포-패키징)에서 관리하는 외부라이브러리 설정 파일 입니다. root-context.xml+context-servlet.xml(스프링빈실행) 파일과는 성격이 틀립니다.
+####20200108(금) 작업
+- 사용자단 html 소스를 jsp 로 변환하는 작업진행. views폴더안에 home폴더 생성 후 작업진행.
+- HomeController클래스 리퀘스트 매핑부분 추가/수정.
+- 사용자단 html(https://miniplugin.github.io/) 소스를 커스터마이징 후 jsp로 만들기.
+- 부트스트랩과 AdminLTE라이브러리 가져오기(board_view[write].html 상단에 추가:아래)
+<!-- Font Awesome -->
+<link rel="stylesheet" href="/resources/plugins/fontawesome-free/css/all.min.css">
+<!-- Bootstrap 4 -->
+<link rel="stylesheet" href="/resources/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+<script src="/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLte -->
+<link rel="stylesheet" href="/resources/dist/css/adminlte.min.css">	
+<!-- write.html은 서머노트 웹에디터 부분 추가(아래) -->
+<link rel="stylesheet" href="/resources/plugins/summernote/summernote.css">
+<script src="/resources/plugins/summernote/summernote.js"></script>
+기존 디자인 수정 2부분(home/css/main.css아래)
+상단 body 부분에 !important 추가 후 바로 아래 1줄 추가
+a:hover {color: #fff !important;} <--여기도  임폴턴트 추가
+dl, ol, ul { margin-bottom:0 !important;}
+게존 디자인 수정 1부분(home/css/board.css아래)
+
+.app_list .tit_lbl { width: 20%; } 라벨 가로크기 기존 21% -> 20%변경
+
+- 인터셉터(가로채기-Interceptor)클래스를 이용해서, 예외처리를 공통 error.jsp 로 바인딩 처리.
+
+- 스프링시큐리티 로그인 구현 pom.xml 의존성 추가(회원가입시 패스워드 암호화 추가).
 ####20200107(목) 작업예정
 - 댓글 jsp에서 Ajax,jQuery사용해서 CRUD처리 마무리.
 - 입사지원시 코딩테스트 할때 아래처럼 기초이론을 구현해보라는 요구사항 때문에 정리(아래)
