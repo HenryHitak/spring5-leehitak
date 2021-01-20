@@ -58,6 +58,17 @@
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사(객체검증), 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
 - 시간이 여유가 되면, eGovFrame메뉴에서 Start > New TemplateProject 심플홈 템플릿 만들어서 커스터 마이징 예정.
+#### 20210121(목) 작업예정
+- 회원가입 프로그램처리 결과확인.
+- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
+
+#### 20210120(수) 작업
+- 이론은 ch13~ch16 마무리OK.
+- 시작전, 마이페이지 .app_content input (board.css 246라인 부분 width:100% 에서 브라우저초기화 inherit로 변경OK.
+- 시작전, 마이페이지 권한부분에서 ROLE_ADMIN추가 및 disabled 처리 및 input hidden 으로 값 지정.
+- 회원탈퇴 여부도 disabled처리 및 input hidden으로 값 지정.
+- 사용자단, 유효성 검사 기능을 포함해서 마이페이지OK.
+- 관리자단, @Valid 애노테이션 사용해서 유효성 검사 실습OK.(pom.xml 외부모듈추가)
 #### 20200119(화) 
 - 수업전 어제 Update확인 및 Junit에서 properties파일 로딩해서 전역변수 사용하기 처리 추가.
 - @PropertySource("classpath:properties/local.properties") J유닛파일상단에 추가
