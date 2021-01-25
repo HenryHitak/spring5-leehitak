@@ -58,6 +58,92 @@
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사(객체검증), 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
 - 시간이 여유가 되면, eGovFrame메뉴에서 Start > New TemplateProject 심플홈 템플릿 만들어서 커스터 마이징 예정.
+#### 20210126(화) 작업예정
+- 게시판생성관리: CRUD중 미처리한 C부분 처리예정.
+- 사용자홈페이지 최신겔러리, 최신게시물 다중게시판 적용처리예정.
+- Hsql 변환 후 -> 헤로쿠에 배포.
+
+####20210125(월) 작업
+- 세션은 서버에서 생성되는 저장소 입니다.:웹접속시 생성된 세션을 HttpServletRequest클래스로 관리
+- 다중게시판 삭제시, 게시판타입에 해당하는 게시물이 존재하면, 삭제불가 메세지 후 삭제로직 끝내기.
+#다중게시판: 게시판 생성기능이 포함됨.
+- @Aspect 기능으로 세션관리 : 1)DebugAdvice.java 에 sessionManager()메서드 생성
+- 게시판 타입세션을 사용. 스프링시큐리티를 사용하지 않았으면, 로그인인증체크 AOP세션으로도 처리.
+- @ControllAdvice 기능으로 @ModelAttribute List오브젝트반환후 jsp이용
+- 2)ControllerAdviceException.java 위 1),2)파일 오전에 작업한 주요파일.
+- AOP기능으로 세션관리 추가작업(아래)
+- 컨트롤러에서 PageVO또는 BoardVO가 Get/Set필요한 순간 항상 아래의 액션이 필요
+- pageVO.setBoard_type(session.getAttribute("session_board_type"));//페이지 진입시 항상필요
+- boardVO.setBoard_type(session.getAttribute("session_boartd_type"));//게시판CRUD시 항상필요
+- 위와 같이 MVC에서 항상 실행되는 부분을 뽑아내서 공통실행으로 만드는 과정을 AOP(관점지향프로그래밍)라고 합니다.
+- 세션변수 session_board_type를 컨트롤러,서비스,DAO,매퍼 모두VO기준 get/set발생할때 세션 변수를 사용할 예정. AOP또는 Interceptor가로채기 클래스를 이용해서 구현예정.
+- AOP로는 : session_board_type변수를 생성관리
+- ControllerAdvice로는 : board_type게시판타입 리스트(List)를 jsp 모델값으로 전송해주는 인터셉터 기능을 사용 메뉴관리.
+
+- DAO 에 boardTypeList를 가져올수 있는 메서드를 1개 만듭니다.
+
+- 기존 작업한 BoardVO 와 PageVO 2군데 주석처리 -> //this.board_type = "notice";//세션변수를 사용할 예정. (아래 DebugAdvice클래스의 AOP소스)
+
+@Around("execution(* org.edu.controller.*Controller.*(..))")
+public Object sessionGetSet(ProceedingJoinPoint pjp) throws Throwable {
+	logger.info("AOP 세션GetSet 시작=========================");
+	HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+	PageVO pageVO = null;
+	BoardVO boardVO = null;
+	String board_type = null;
+    for(Object object:pjp.getArgs()){
+    	logger.info("디버그 파라미터 출력: " + object);
+        if(object instanceof String){
+            board_type = (String) object;
+        }else if(object instanceof PageVO){
+            pageVO = (PageVO) object;
+        }else if(object instanceof BoardVO){
+            boardVO = (BoardVO) object;
+        }
+    }
+    if(request != null){
+    	HttpSession session = request.getSession();
+    	if(board_type != null) {
+			session.setAttribute("session_board_type", board_type);
+		}
+    	if(session.getAttribute("session_board_type") != null ) {
+    		board_type = (String) session.getAttribute("session_board_type");
+    	}
+        if(pageVO != null){
+        	pageVO.setBoard_type(board_type);//다중게시판 쿼리때문에 추가
+        }
+        if(boardVO != null){
+        	boardVO.setBoard_type(board_type);//다중게시판 쿼리때문에 추가
+        }
+    }
+    Object returnObj = pjp.proceed();
+	logger.info("AOP GetSet 끝 ==========================");
+	return returnObj;
+}
+- AdminController에서 작업한 board_list 메서드의 HttpServletRequest request, 부분은 제외 시킵니다.(AOP에서 구현했기 때문에)
+- 바로 아래 코드도 주석처리(AOP에서 구현했기 때문에)
+HttpSession session = request.getSession();
+if(board_type != null) {
+	session.setAttribute("session_board_type", board_type);
+}
+- 관리자단 게시판생성 CRUD 작업예정.(다중게시판)
+- 사용자단 게시판생성에 영향을 받는 부분 작업예정.
+####20210122(금) 작업
+- 시작전, sns용 전역변수 처리 후 헤로쿠에도 배포 후에도 로그인 확인
+#sns로그인 접속정보: sns.properties 에 있는 내용
+- SnsClientID=본인아이디
+- SnsClientSecret=본인암호
+- SnsCallbackUri=http://127.0.0.1:8080/login_callback
+@PropertySource("classpath:properties/sns.properties") 추가
+//설정파일에서 변수값으로 가져옴 sns.properties 에 있는 내용
+@Value("${SnsClientID}")
+private String CLIENT_ID;
+@Value("${SnsClientSecret}")
+private String CLIENT_SECRET;
+@Value("${SnsCallbackUri}")
+private String REDIRECT_URI;
+- 관리자단에 게시판 생성 메뉴추가 후 작업진행 예정.
+
 #### 20210121(목) 작업예정
 - 회원가입 프로그램처리 결과확인.
 - 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.

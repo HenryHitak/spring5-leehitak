@@ -1,4 +1,5 @@
 package org.edu.vo;
+
 /**
  * PageVO클래스로서 회원,게시판 공통으로 사용됩니다.
  * 1페이지당 보여줄 개수를 이용해서 전체데이터를 분할해서 보여주는 역할
@@ -8,10 +9,12 @@ package org.edu.vo;
  * - 1페이지계산 10[1페이지당출력할개수]x(1[몇번째페이지번호]-1) = 0 1페이지일때
  * - 2페이지계산 10x(2-1) = 10[계산결과나온 시작페이지번호] 2페이지일때
  * - SELECT * FROM tbl_board order by bno desc limit 10, 5;# 10-시작인덱스,10-출력할 개수
- * @author 김일국
+ * @author gmlxkr
  *
  */
 public class PageVO {
+	//다중게시판 추가 때문에 매퍼쿼리에 보낼 board_type변수가 필요
+	private String board_type;
 	//예를 들면 변수 중에 boolean(일반형테이터형변수) / boolean(대문자로시작-클래스형변수-Null로 입력되었을때 처리하는 로직이 들어 있습니다)
 	private int perPageNum;//리스트하단에 보이는 페이징번호의 개수값이 들어가는 변수
 	private int queryPerPageNum;//쿼리에서 사용하는 1페이지당 출력할 개수값 변수
@@ -28,6 +31,15 @@ public class PageVO {
 	//검색에 필요한 변수 2개도 포함시켜서, 컨트롤러에서 매개변수 사용을 축소하게 됩니다.
 	private String search_type;//검색조건
 	private String search_keyword;//검색어
+	
+	public String getBoard_type() {
+		//this.board_type = "notice";//세션변수를 사용할 예정.
+		return board_type;
+	}
+
+	public void setBoard_type(String board_type) {
+		this.board_type = board_type;
+	}
 	
 	//전체 클래스에서 [계산식]이 4개 필요합니다. 개발자가 만들어야 합니다.(아래)
 	//계산식4개로 반환되는 값은: startPage(11), endPage(20), prev(true), next(false)
@@ -52,6 +64,7 @@ public class PageVO {
 		//만약 회원[게시물] 195개 일 경우가 있습니다.
 		if(tempEnd*this.queryPerPageNum > this.totalCount) {//경우 200>195
 			//(임시끝페이지x쿼리에서1페이지당출력할개수 > 실제전체개수)
+			//클릭한 page번호로 계산된 게시물수가 실제게시물(totalCount)수보다 클때
 			this.endPage = (int)Math.ceil(
 					this.totalCount/(double)this.queryPerPageNum
 					);// 195/10 => [20] 19.9 19.8 ... 19.5
