@@ -265,18 +265,17 @@ public class HomeController {
 	}
 	
 	//사용자 홈페이지 회원가입 처리 매핑
-		@RequestMapping(value="/join",method=RequestMethod.POST)
-		public String join(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
-			//아래 3줄이 스프링 시큐리티에서 제공하는 패스워드암호화 처리 
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			String user_pw_encode = passwordEncoder.encode(memberVO.getUser_pw());
-			memberVO.setUser_pw(user_pw_encode);
-
-			memberService.insertMember(memberVO);
-			rdat.addFlashAttribute("msg", "회원가입");
-			return "redirect:/login";
-		}
-	
+	@RequestMapping(value="/join",method=RequestMethod.POST)
+	public String join(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
+		//아래 3줄이 스프링 시큐리티에서 제공하는 패스워드암호화 처리 
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String user_pw_encode = passwordEncoder.encode(memberVO.getUser_pw());
+		memberVO.setUser_pw(user_pw_encode);
+		
+		memberService.insertMember(memberVO);
+		rdat.addFlashAttribute("msg", "회원가입");
+		return "redirect:/login";
+	}
 	//사용자 홈페이지 회원가입 접근 매핑
 	@RequestMapping(value="/join",method=RequestMethod.GET)
 	public String join() throws Exception{
@@ -291,9 +290,16 @@ public class HomeController {
 		pageVO.setPage(1);
 		pageVO.setPerPageNum(5);//하단페이징
 		pageVO.setQueryPerPageNum(5);
+		
+		//사용자홈 메인페이지에 출력할 게시판 지정, gallery 쿼리1
+		pageVO.setBoard_type("gallery");
 		List<BoardVO> board_list = boardService.selectBoard(pageVO);
-		//System.out.println("디버그" + board_list);
 		model.addAttribute("board_list", board_list);
+		
+		//사용자홈 메인페이지에 출력할 게시판 지정, notice 쿼리2
+		pageVO.setBoard_type("notice");
+		List<BoardVO> notice_list = boardService.selectBoard(pageVO);
+		model.addAttribute("notice_list", notice_list);
 		
 		//첨부파일 1개만 model클래스를 이용해서 jsp로 보냅니다.
 		String[] save_file_names = new String[board_list.size()];
