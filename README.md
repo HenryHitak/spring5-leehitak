@@ -58,6 +58,58 @@
 - 오라클로 마이그레이션 작업.
 - 이후 유효성검사(객체검증), 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
 - 시간이 여유가 되면, eGovFrame메뉴에서 Start > New TemplateProject 심플홈 템플릿 만들어서 커스터 마이징 예정.
+####20210208(월) 작업예정.
+- 쿼리에서 TOP 5개 구하기(아래오라클): MS-SQL(TOP 5), Mysql(LIMIT 5), Oracle(ROWNUM)
+
+```
+SELECT ROWNUM AS TB_RNUM, TB.* FROM (
+    SELECT ROWNUM AS TA_RNUM, TA.* FROM TBL_MEMBER TA
+    ORDER BY REG_DATE DESC
+) TB
+WHERE ROWNUM <= 5;
+-- TOP5를 구하는 위는 확인용 쿼리 아래는 실제 작업시 사용하는 쿼리
+SELECT * FROM (
+    SELECT * FROM TBL_MEMBER
+    ORDER BY REG_DATE DESC
+) TA
+WHERE ROWNUM <= 5;
+```
+오라클 이론 단원13(4DELETE) 작업예정.
+8교시 SQL활용 서술형시험 + 과제물제출
+C언어 기초: 3장 입출력함수와 연산자 시작예정.
+-- 테이블 생성하는 쿼리(제약조건 포함)
+- 제약조건: 프런트엔드단(required), 백엔드단(@NotNull), DB단(NotNull)
+- NotNull, Unique 모두 Primay key로 지정시 자동으로 적용됨.
+- 테이블 3개 이상 조인예(아래)
+
+```
+SELECT TC.BOARD_NAME,TA.BNO,TA.TITLE,TA.REG_DATE,TA.VIEW_COUNT, COUNT(TB.RNO) AS 댓글카운트 
+FROM 
+TBL_BOARD TA INNER JOIN TBL_REPLY TB ON TA.BNO = TB.BNO
+JOIN TBL_BOARD_TYPE TC ON TC.BOARD_TYPE=TA.BOARD_TYPE
+GROUP BY TC.BOARD_NAME,TA.BNO,TA.TITLE,TA.REG_DATE,TA.VIEW_COUNT
+```
+-- 제약조건을 확인 하는 명령
+SELECT * FROM ALL_CONSTRAINTS WHERE TABLE_NAME='TBL_CONSTRAINT'
+####20210205(금) 작업
+- 오라클 이론 단원10 진도.
+- [셀프조인]: 대표적으로 사용되는 곳 메뉴 관리
+- 사원1 사원번호1: 매니저번호 null
+- 사원2 사원번호2: 매니저번호 1
+- 사원3 사원번호3: 매니저번호 2
+- 매니저테이블에 매니저번호 1, 2 따로 있지않고, 사원테이블 필드중 사원번호를 매니저번호로 사용.
+- 위 내용을 쿼리로 표현하는 방식을 [셀프조인] 라고 합니다.
+- 레포트(RD툴-레포트디자이너툴) : 비지니스용 출력 (성적표출력, 월매출 출력, 증명서출력 등등)
+- C언어 기초: 3장 입출력함수와 연산자 시작예정.
+####20210204(목) 작업
+- 오라클 이론 단원07(2:SYSDATE를 시분초나오는 문자열로 형변환) 진도.
+- 단일행함수(DECODE,NVL,TO_CHAR,TO_DATE,TO_NUMBER,DATE관련함수)
+- 복수행함수() - 해빙절 부터 시작예정.
+- C언어 기초: 3장 입출력함수와 연산자 시작예정.
+- 출석수업시 바로 IoT실습에 들어가기 위해서 구름IDE에서 C언어 실습연습.
+- 클라우드용 이클립스 Che 개발도구로 사용:
+- printf("%f",fa);
+- scanf("%f", &fa);//&fa(Address주소변수-값이저장된 주소를가진 변수))
 #### 작업예정
 - oracle폴더의 memberMapper, replyMapper, boardTypeMapper 3개파일 마이그레이션
 - 수정1: now() -> sysdata (현재일시구하기)
@@ -75,7 +127,104 @@
 - 02월03일 부터 오라클 이론 단원06 진도 시작.
 - C언어 기초: 출석수업시 바로 IoT실습에 들어가기 위해서 구름IDE에서 C언어 실습연습.
 - --------------------------------------------------------------------
+#### 20210203(수) 작업
+- --------------------------------------------------------------------
+- 시작전: 이희탁씨(spring5깃허브+헤로쿠연동+네아로연동작업)OK., 
+- 이용오씨(헤로쿠2단계인증문제) 확인(아래 내용 시도중)
+- google authenticator 어플설치 깔아서 인증해서 들어가서 없앤 후 같은 메일로 로그인하면.
+- 2교시때 UI구현 과제물 구글워드파일 제출(다음카페)OK.
+- 02월03일 부터 오라클 이론 단원06 진도 시작.
+- 과제물 서식확인
+- SQL DEVELOPER 에서 위에서 생성한 오라클용 게시판관리 테이블의 인덱스 확인후 결과를 캡쳐해서 이 문서에 저장한다.
+- 게시물별 댓글 갯수를 표시하는 뷰테이블 생성해서, 생성 소스와 결과캡쳐물을 이 문서에 저장한다.
+- 용어1 뷰테이블 : 실제 물리적인 테이블이 아닙니다.(실제 데이터가 저장되는 공간은 아님)
+- 뷰테이블은 데이터베이스를 조작해서 화면에 가상테이블로 출력하는 기능.
+-- 뷰테이블은 데이터베이스를 조작해서 화면에 가상테이블로 출력하는 기능.
+-- 뷰테이블 서식: 예), 게시물별(부모TBL_BOARD) 댓글(자식TBL_REPLY) 갯수를 구하는 쿼리
+-- 목표: 게시물별 댓글이 달린 게시물 + 댓글 개수가 나오는 표(테이블)을 생성
+-- 목표분해1: 게시물에 댓글이 달린 게시물만 출력  (기본) 테이블 조인 사용(교집합개념)
+-- 목표분해2: 위 출력물에서 댓글개수를 추가로 출력(카운터) GROUP BY 해서 COUNT()사용
+SELECT * FROM TBL_BOARD;
+SELECT * FROM TBL_REPLY;
+- 게시물별 첨부파일 갯수를 검색하는 쿼리를 테이블 조인을 이용해서 작성한 소스와 실행 결과캡쳐물을 이 문서에 저장한다.
+- 용어2 테이블조인:
+####20210202(화) 작업
+- scope(모듈이사용되는영역 provided-내장된다고 명시)1:
+- provided-메모리를 기준: 톰캣이 실행시 jar모듈이 메모리에 로딩=인스턴스 생성.
+- scope(모듈이사용되는영역 runtime이라고 명시)2:
+- runtime-메모리를 기준: 톰캣 실행시 메모리에 로딩X, 해당 기능이 실행시runtime시 메모리에 로딩=인스턴스 생성.
+- scope(모듈이사용되는영역이 test라고 명시)3:
+- test-메모리를 기준: 톰캣 실행시 메모리에 로딩X, 웹프로그램기능에서 실행X, @TEST시에만 메모리에 리딩=인스턴스 생성.
+- 사전작업: JUnit에서 더미데이터 입력시 시간 초단위로 입력 부분 처리예정. - 문제없었음. 쿼리에서 sysdate로 박혀 있어서 그랬음.
+- 그래도, JUnit으로 더미 데이터를 입력하려면, 쿼리를 바꾸던가, 아니면, 인서트호출 후 Thread.sleep(1000);입력하면 해결됨.OK.
+- 사전작업: spring5-프로젝트명 신규레포지토리 git과 연동작업OK.
+- 스프링MVC프로젝트 스프링버전 5.2.5 마이그레이션(버전 업그레이드)OK.
+- 위 스프링버전 마이그레이션이 필요한이유: 자바버전 2.x 보편화 되었을때, 톰캣버전 9.x 보편화 되었을때, 등등 이유가 있음(필수)
+- kimilguk프로젝트를 그대로 두고, spring5-kimilguk이름으로 폴더를 복사해서 프로젝트 생성됨
+- kimilguk.herokuapp.com(스프링4.x), spring5-kimilguk.herokuapp.com(스프링5.x)
+####20210201(월) 작업
+- 시작전1:replyMapper 마무리: 댓글 1개등록 후 삭제 후 다시등록시 페이징이 사라지는 문제 처리OK.
+- board_view.jsp의 삭제부분 $("#div_reply").empty(); 아래 코드로 수정.
+- $("#div_reply").find("div").not(".pagination").empty(); ->대신에 아래처럼 해도됨
+- $("#div_reply").html('<div class="pagination justify-content-center"><ul class="pagination pageVO"></ul></div>');
+- 시작전2:조회수 카운트도 필드값 null 때문에 증가가 않되는 부분 처리OK(NVL추가 아래).
+- 오라클 전용 수정할 쿼리: set view_count = NVL(view_count,0) + 1
+- 쿼리널체크: Mysql=ifnull(v1,v2),MSsql+Hsql=isnull(v1,v2)
+- 쿼리널체크: Oracle=nvl(v1,v2), NVL(Null VaLue)체크 함수.
+- 시작전3:멤버 페이지 페이징 쿼리부분에서 ORDER BY 부분제거 취소 후 더미데이터의 reg_date 수정.
+- 시작전4:게시판,댓글 페이징 부분은 정렬방식을 REG_DATE에서 BNO로 변경 취소.
+- 위3,4번 처리하는 대신 더미데이터만드는 프로시저에서 reg_date 현재시간기준 1초씩 증가하도록 처리 order by 가 제대로 작동하도록 처리OK.
+- 시작전: 더미데이터 만드는 프로시저에 REG_DATE항목을 1초 단위로 증가될 수 있도록 수정한 후 다시 더미데이터 생성한다.
+- create or replace PROCEDURE      "PROC_MEMBER_INSERT" 
+(
+  P_COUNT IN NUMBER 
+) AS 
+BEGIN
+  -- TRUNCATE table TBL_MEMBER; 삭제시 자동커밋
+  -- 실행방법: CALL PROC_MEMBER_INSERT(100);
+  FOR i IN 1..P_COUNT LOOP
+       IF(i=P_COUNT) THEN
+            INSERT INTO TBL_MEMBER
+            (user_id,user_pw,user_name,enabled,levels,reg_date,update_date)
+            VALUES
+            ('admin','$2a$10$kIqR/PTloYan/MRNiEsy6uYO6OCHVmAKR4kflVKQkJ345nqTiuGeO'
+            ,'관리자',1,'ROLE_ADMIN',sysdate + (1/24/60/60)*i,sysdate + (1/24/60/60)*i);
+        ELSE
+            INSERT INTO TBL_MEMBER
+            (user_id,user_pw,user_name,enabled,levels,reg_date,update_date)
+            VALUES
+            (concat('user',i) ,'$2a$10$kIqR/PTloYan/MRNiEsy6uYO6OCHVmAKR4kflVKQkJ345nqTiuGeO'
+            ,'사용자',1,'ROLE_USER',sysdate + (1/24/60/60)*i,sysdate + (1/24/60/60)*i);
+        END IF;
+      END LOOP;
+  commit;
+END PROC_MEMBER_INSERT;
 
+create or replace PROCEDURE      "PROC_BOARD_INSERT" 
+(
+  P_BOARD_TYPE IN VARCHAR2 
+, P_COUNT IN NUMBER 
+) AS 
+BEGIN
+  -- TRUNCATE table TBL_REPLY; 삭제시 자동커밋
+  -- TRUNCATE table TBL_ATTACH; 삭제시 자동커밋
+  -- DELETE FROM TBL_BOARD WHERE 1 = 1; 삭제시 커밋 필요 + 시퀸스 초기화 필요(초기값만 1로 바꾸면됨)
+  -- 실행방법;쿼리에디터에서 CALL PROC_BOARD_INSERT('notice',50);
+  FOR i IN 1..P_COUNT LOOP
+        INSERT INTO TBL_BOARD
+        (bno,board_type,title,content,writer,reg_date,update_date) 
+        VALUES
+        (SEQ_BNO.nextval,P_BOARD_TYPE,'게시물테스트','게시물내용테스트','관리자',SYSDATE + (1/24/60/60)*i,SYSDATE + (1/24/60/60)*i);
+      END LOOP;
+- commit;
+- END PROC_BOARD_INSERT;
+- oracle폴더의 memberMapper, replyMapper, boardTypeMapper 3개파일 마이그레이션 OK.
+- 수정1: now() -> sysdate (현재일시구하기)
+- 수정2: limit 사용된 페이징 쿼리 -> 제거 후 기능변경(ROWNUM 키워드 사용, concat() -> ||연결문자사용)
+- 수정3: limit 사용된 조회시 최근게시물 1개 뽑아낼때 -> 제거 후 기능변경(ROWNUM 예약어 사용)
+- 수정4: < 부등호가 들어가 있는 쿼리는 이렇게 CDATA로 처리.
+- 수정5: Insert의 AI(자동증가)부분 처리:마이바티스의 selectKey태그를 이용해서 시퀸스처리
+- 오늘 종료전 2월3일(수2교시) 다음카페에 제출하실 포트폴리오 구글 워드 문서 배포OK.
 #### 20210129(금) 작업
 - 이론 단원 05단원 까지 진도OK.
 - 오라클 전용 쿼리에서 3개이상의 문자열 연결할때 파이프라인 특수문자를 사용: ||
