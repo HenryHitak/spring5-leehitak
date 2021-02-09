@@ -74,4 +74,13 @@ public class MemberServiceImpl implements IF_MemberService {
 			System.out.println("헤로쿠 앱이 비활성화 상태 입니다.");
 		}
 	}
+	@Override
+	public void testJob() throws Exception {
+		// DAO호출해서 반환값으로 회원목록을 받습니다.(아래)
+		List<MemberVO> memberList = memberDAO.testJob();
+		System.out.println("6개월 동안 회원정보 수정이 없는 회원정보는...(아래)");
+		for(MemberVO memberVO:memberList) {
+			System.out.println(memberVO.getUser_id()+":"+memberVO.getEmail());
+		}
+	}
 }
