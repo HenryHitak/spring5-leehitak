@@ -48,7 +48,6 @@ public class LoginController {
 			rdat.addFlashAttribute("naver_msg", "fail");
 			return "redirect:/login";
 		}
-	
 		OAuth2AccessToken oauthToken;//토큰으로 시용할 변수 선언
 		//NaverLoginController 의 메서드 호출(아래)
 		oauthToken = naverLoginController.getAccessToken(session, code, state);//인증결과
@@ -86,7 +85,6 @@ public class LoginController {
 			session.setAttribute("session_userid", useremail);
 			session.setAttribute("session_levels", "ROLE_USER");
 			session.setAttribute("session_username", username);
-			rdat.addFlashAttribute("msg", "네이버 아이디 로그인");
 			session.setAttribute("session_type", "sns");
 			rdat.addFlashAttribute("msg", "SNS 아이디 로그인");
 		} else {

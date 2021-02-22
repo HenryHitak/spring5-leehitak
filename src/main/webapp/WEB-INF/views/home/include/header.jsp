@@ -21,6 +21,7 @@
 <script src="/resources/home/js/rollmain.js"></script>
 <!-- //슬라이드용 --> 
 <style>
+
 </style>
 <script>
 if('${msg}' != '') {//자바의 EL표기법 = 달라{변수명}
@@ -47,7 +48,9 @@ if('${msg}' != '') {//자바의 EL표기법 = 달라{변수명}
 					<c:when test="${session_enabled eq 'true'}">
 						<!-- 로그인 후 보이는 메뉴(아래) -->
 						<li><a href="#">${session_username} 님 환영합니다.</a></li>
-						<li><a href="/member/mypage">마이페이지</a></li>
+						<c:if test="${session_type eq 'normal'}">
+							<li><a href="/member/mypage">마이페이지</a></li>
+						</c:if>
 						<li><a href="/logout">로그아웃</a>
 						<c:if test="${session_levels eq 'ROLE_ADMIN'}">
 							<li><a href="/admin">AdminLTE</a></li>
@@ -69,6 +72,7 @@ if('${msg}' != '') {//자바의 EL표기법 = 달라{변수명}
                             </ul>
                         </div>
 					</li>
+					<!-- 자바jstl로 board_type_list의 1번째 레코드값에서 board_type변수생성(아래) -->
 					<c:forEach items="${board_type_list}" var="boardTypeVO" varStatus="status">
 						<c:if test="${status.index == 0}">
 						<c:set var="first_board_type" value="${boardTypeVO.board_type}" />
@@ -77,10 +81,9 @@ if('${msg}' != '') {//자바의 EL표기법 = 달라{변수명}
 					<li><a href="/home/board/board_list?board_type=${first_board_type}" class="openAll2">커뮤니티</a>
 				        <div class="gnb_depth gnb_depth2_2">
                             <ul class="submenu_list">
-                    <!-- 자바jstl로 board_type_list의 1번째 레코드값에서 board_type변수생성(아래) -->
-					<c:forEach items="${board_type_list}" var="boardTypeVO">
-                    <li><a href="/home/board/board_list?board_type=${boardTypeVO.board_type}">${boardTypeVO.board_name}</a></li>
-                    </c:forEach>
+                            <c:forEach items="${board_type_list}" var="boardTypeVO">
+                            	<li><a href="/home/board/board_list?board_type=${boardTypeVO.board_type}">${boardTypeVO.board_name}</a></li>
+                            </c:forEach>
                             </ul>
                         </div>
 					</li>

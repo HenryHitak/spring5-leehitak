@@ -20,7 +20,7 @@ $(document).ready(function() {
 <!-- 메인콘텐츠영역 -->
 	<div id="container">
 		<!-- 메인상단위치표시영역 -->
-		<%@ include file="../include/container_header.jsp" %>	
+		<%@ include file="../include/container_header.jsp" %>
 		<!-- //메인상단위치표시영역 -->
 
 		<!-- 메인본문영역 -->

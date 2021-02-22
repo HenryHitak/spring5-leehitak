@@ -6,7 +6,6 @@
 select count(*) from tbl_reply where bno = #{bno}
 </select>
 
-
 <select id="selectReply" resultType="org.edu.vo.ReplyVO">
 select * from tbl_reply 
 where bno = #{bno}
@@ -39,5 +38,4 @@ where rno = #{rno}
 <delete id="deleteReplyAll">
 delete from tbl_reply where bno = #{bno}
 </delete>
-
 </mapper>

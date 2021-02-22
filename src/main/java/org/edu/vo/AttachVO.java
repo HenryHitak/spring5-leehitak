@@ -7,7 +7,7 @@ public class AttachVO {
 	private String real_file_name;
 	private Integer bno;
 	private Date reg_date;
-
+	
 	@Override
 	public String toString() {
 		return "AttachVO 디버그용 [save_file_name=" + save_file_name + ", real_file_name=" + real_file_name + ", bno=" + bno
@@ -37,5 +37,5 @@ public class AttachVO {
 	public void setReg_date(Date reg_date) {
 		this.reg_date = reg_date;
 	}
-
+	
 }

@@ -1,13 +1,15 @@
 package org.edu.vo;
 
 import java.util.Date;
-import org.springframework.stereotype.Component;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 회원정보관리용 클래스
- * @author gmlxkr 2020-12-04 생성
+ * @author 김일국 2020-12-04 생성
  *
  */
 @Component

@@ -90,6 +90,7 @@ DELETE FROM tbl_member WHERE user_id=#{user_id}
 <select id="readMember" resultType="org.edu.vo.MemberVO">
 SELECT * FROM tbl_member WHERE user_id=#{user_id}
 </select>
+
 <select id="testJob" resultType="org.edu.vo.MemberVO">
 <![CDATA[
 SELECT * FROM 

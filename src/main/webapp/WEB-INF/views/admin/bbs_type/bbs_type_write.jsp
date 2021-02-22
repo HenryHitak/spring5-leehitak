@@ -102,7 +102,6 @@ jQuery(document).ready(function() {
 				jQuery("#btn_insert").attr("disabled",false);
 			}
 		}
-		
 	});
 });
 </script>

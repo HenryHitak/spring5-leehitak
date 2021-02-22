@@ -9,12 +9,12 @@ import java.sql.Statement;
 public class DbQueryTest {
 
 	public static void main(String[] args) {
-
+		
 		Connection connection = null;
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			connection = DriverManager.getConnection("jdbc:hsqldb:file:c:/egov/workspace/embeded/hsql_file.db;hsqldb.lock_file=fals","sa","");
+			connection = DriverManager.getConnection("jdbc:hsqldb:file:c:/egov/workspace/embeded/hsql_file.db;hsqldb.lock_file=false","sa","");
 			//직접 쿼리를 날립니다.(아래)
 			stmt = connection.createStatement();
 			/* 인서트 쿼리실행(아래) 
@@ -34,20 +34,20 @@ public class DbQueryTest {
 				System.out.print(rs.getString("writer"));
 				System.out.println();
 			}
-
+			
 		} catch (SQLException e) {
-
+			
 		} finally {
 				try {
 					if(rs !=null)rs.close();
 					if(stmt !=null)stmt.close();
 					if(connection !=null)connection.close();
 				} catch (SQLException e) {
-
+					
 				}
-
+			
 		}
-
+		
 
 	}
 

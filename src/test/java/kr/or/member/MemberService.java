@@ -2,7 +2,7 @@ package kr.or.member;
 
 import kr.or.member.MemberVO;
 
-public class MemberService {//메서드 기능 추가 CRUD 만들기.
+public class MemberService {
 	public void printMember(MemberVO[] members) {// members는 레코드가 여러개=3개레코드가들어감
 		// 서비스 구현메서드 내용(아래) 향상된 for반복문 사용
 		int cnt = 0;

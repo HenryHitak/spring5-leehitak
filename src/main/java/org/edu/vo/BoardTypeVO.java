@@ -4,7 +4,7 @@ public class BoardTypeVO {
 	private String board_type;
 	private String board_name;
 	private Integer board_sun;
-
+	
 	@Override
 	public String toString() {
 		return board_type;
@@ -27,5 +27,5 @@ public class BoardTypeVO {
 	public void setBoard_sun(Integer board_sun) {
 		this.board_sun = board_sun;
 	}
-
+	
 }

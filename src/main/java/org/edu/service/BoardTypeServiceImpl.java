@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class BoardTypeServiceImpl implements IF_BoardTypeService {
 	@Inject
 	private IF_BoardTypeDAO boardTypeDAO;
-
+	
 	@Override
 	public BoardTypeVO view_board_type(String board_type) throws Exception {
 		// 게시판타입 수정용기존값 불러오는 DAO호출(아래)

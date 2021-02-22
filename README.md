@@ -1,3 +1,13 @@
+#### Hsql 데이터베이스 사용 개선
+- jdbc:hsqldb:file:c:/egov/workspace/embeded/hsql_file.db 이 내용이 사용된 부분에  ;hsqldb.lock_file=false를 추가하면, 사용시 lock이 걸리지 않고 톰캣과 Junit 동시 사용이 가능합니다.(아래 2가지 수정)
+- root-context.xml 과 
+- Junit 작업파일에서 oldQueryTest() 메서드 부분
+- 작업결과 아래와 같이 표현 됩니다.
+- jdbc:hsqldb:file:c:/egov/workspace/embeded/hsql_file.db;hsqldb.lock_file=false
+- 단, 기존에 만들었던 DB폴더에서 lock파일(hsql_file.lck)을 지우셔야 합니다.
+- 다음 실행 부터는 생성되지 않기 때문에 톰캣실행과 JUnit및 다른 프로그램 작업도 가능합니다.
+![ex_screenshot](./git_img/hsql_lock_delete.jpg)
+
 ### 기본정보
 - 스프링관리자 AdminLTE템플릿 샘플: 
 - https://adminlte.io/themes/v3/pages/forms/general.html
@@ -50,16 +60,44 @@
 - web.xml에 스프링시큐리티 설정 추가OK.
 - security-context.xml OK.
 - 스프링빈클래스작업: 로그인 구현 + 관리자 회원등록시 패스워드 암호화 추가 OK.
----------------------- 작업중 ------------------------------
-- 사용자단 CRUD 구현(RestAPI 댓글포함).
---------------------------------------------------------------------
+- 사용자단 CRUD 구현(RestAPI 댓글포함)OK.
 - 헤로쿠 클라우드로 배포(Hsql데이터베이스사용).
-- 웹프로젝트 소스를 스프링프레임워크 버전으로 5.2.5 마이그레이션(버전 업그레이드)
-- 오라클로 마이그레이션 작업.
-- 이후 유효성검사(객체검증), 파스타클라우드, 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+- 이후 유효성검사(객체검증,마이페이지,회원가입-탈퇴), 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 사용 등등. pom.xml 의존성 추가.
+- 게시판분리(공지사항과 겔러리게시판): 부모테이블과 필드추가 를 이용해서 다중게시판 생성처리.
+- 오라클로 마이그레이션 작업OK.
+- 웹프로젝트 소스를 스프링프레임워크 버전으로 5.2.5 마이그레이션(버전 업그레이드) 헤로쿠배포OK.
+---------------------- 작업중 ------------------------------
+- 02월03일 부터 오라클 이론 단원06 진도 시작.
+----------------------------------------------------------
 - 시간이 여유가 되면, eGovFrame메뉴에서 Start > New TemplateProject 심플홈 템플릿 만들어서 커스터 마이징 예정.
-####20210208(월) 작업예정.
-- 쿼리에서 TOP 5개 구하기(아래오라클): MS-SQL(TOP 5), Mysql(LIMIT 5), Oracle(ROWNUM)
+- 파스타클라우드 제일 마직막 달에 2주 기간중 배포(클라우드용-mysql을사용)
+- IoT(아두이노,노드MCU보드로 실습-C언어책3권) 2주
+- 안드로이드앱(클라이언트)-통신-자바:스프링웹프로젝트(API서버) 2주
+#### 시험 미응시자 확인
+- 2월3일 UI구현 과제물 제출 + 사후 + 사전평가: 이현진씨(사정생겨서 취소)
+- 2월8일 SQL활용 과제물 및 서술형: 이현진씨(사정이생겨서 취소), 이용오씨
+- -----------------------------------------------------
+- 2차 시험자 보수교육자료: (아래구글워드문서)
+https://drive.google.com/file/d/1qs2ct8sJyHxf985dJaepbN2sv_ZZ8DpX/view?usp=sharing
+- 2차 시험자: 배경득씨(보수교육O), 이병현씨(보수교육O), 이용오씨(보수교육필요x) 입니다.
+- SQL활용사후_서버프로그램구현서전평가 미제출자(임송하씨)
+- -----------------------------------------------------
+#### 20210209(화) 작업예정.
+- 작업전: SQL활용 사후평가 + 서버프로그램구현 사전평가지 배포 및 제출OK.
+- SQL활용시험 리뷰(성적우수자) 리뷰OK.
+- 깃 IT강의저장소 V8.0.0 서버프로그램 구현 구글문서 제출서식 항목 확인 
+- 전자정부표준프레임워크 커스터마이징 시작
+- C언어 기초: 3장 입출력함수와 연산자 시작예정.
+- 수업종료 후(오후 5시 50분~6시50분) SQL활용 2차시험
+
+#### 20210208(월) 작업.
+- 오라클 이론 단원20(시노님까지) 작업OK.
+- 시퀸스(AI역할)-자동번호발생기,동의어(시노님)-테이블호출명이길때,별칭을 만들어서 편리한 호출목적.
+- Grant(권한부여하는명령어)<->Revoke(권한제거명령어), Privileges(권한에관련된명령)
+- GRANT예:  GRANT CREATE TABLE ON EMP TO XE;
+- REVOKE예: REVOKE CREATE TABLE, ON EMP FROM XE;
+- 인덱스: B-TREE알고리즘(자료구조과목): 정렬된 인덱스를 이용한 검색방법.
+- 쿼리에서 TOP 5개 구하기(아래오라클): MS-SQL(TOP 3), Mysql(LIMIT 3), Oracle(ROWNUM<=3-서브쿼리실행 후 바깥쪽을 Select로 감싸줌.)
 
 ```
 SELECT ROWNUM AS TB_RNUM, TB.* FROM (
@@ -74,10 +112,6 @@ SELECT * FROM (
 ) TA
 WHERE ROWNUM <= 5;
 ```
-오라클 이론 단원13(4DELETE) 작업예정.
-8교시 SQL활용 서술형시험 + 과제물제출
-C언어 기초: 3장 입출력함수와 연산자 시작예정.
--- 테이블 생성하는 쿼리(제약조건 포함)
 - 제약조건: 프런트엔드단(required), 백엔드단(@NotNull), DB단(NotNull)
 - NotNull, Unique 모두 Primay key로 지정시 자동으로 적용됨.
 - 테이블 3개 이상 조인예(아래)
@@ -89,10 +123,25 @@ TBL_BOARD TA INNER JOIN TBL_REPLY TB ON TA.BNO = TB.BNO
 JOIN TBL_BOARD_TYPE TC ON TC.BOARD_TYPE=TA.BOARD_TYPE
 GROUP BY TC.BOARD_NAME,TA.BNO,TA.TITLE,TA.REG_DATE,TA.VIEW_COUNT
 ```
+- 8교시 SQL활용 서술형시험 + 과제물제출
+
+```
+-- 테이블 생성하는 쿼리(제약조건 포함)
+CREATE TABLE TBL_CONSTRAINT (
+RNO NUMBER(11) PRIMARY KEY,
+BNO NUMBER(11),
+REPLYTEXT VARCHAR2(1000),
+REPLYER VARCHAR2(50),
+REG_DATE DATE,
+UPDATE_DATE DATE,
+CONSTRAINT FK_BOARD FOREIGN KEY(BNO)
+REFERENCES TBL_BOARD(BNO)
+);
 -- 제약조건을 확인 하는 명령
 SELECT * FROM ALL_CONSTRAINTS WHERE TABLE_NAME='TBL_CONSTRAINT'
-####20210205(금) 작업
-- 오라클 이론 단원10 진도.
+```
+#### 20210205(금) 작업
+- 오라클 이론 단원10 진도. 
 - [셀프조인]: 대표적으로 사용되는 곳 메뉴 관리
 - 사원1 사원번호1: 매니저번호 null
 - 사원2 사원번호2: 매니저번호 1
@@ -101,39 +150,21 @@ SELECT * FROM ALL_CONSTRAINTS WHERE TABLE_NAME='TBL_CONSTRAINT'
 - 위 내용을 쿼리로 표현하는 방식을 [셀프조인] 라고 합니다.
 - 레포트(RD툴-레포트디자이너툴) : 비지니스용 출력 (성적표출력, 월매출 출력, 증명서출력 등등)
 - C언어 기초: 3장 입출력함수와 연산자 시작예정.
-####20210204(목) 작업
+
+#### 20210204(목) 작업
 - 오라클 이론 단원07(2:SYSDATE를 시분초나오는 문자열로 형변환) 진도.
 - 단일행함수(DECODE,NVL,TO_CHAR,TO_DATE,TO_NUMBER,DATE관련함수)
 - 복수행함수() - 해빙절 부터 시작예정.
 - C언어 기초: 3장 입출력함수와 연산자 시작예정.
 - 출석수업시 바로 IoT실습에 들어가기 위해서 구름IDE에서 C언어 실습연습.
-- 클라우드용 이클립스 Che 개발도구로 사용:
+- 클라우드용 이클립스 Che 개발도구로 사용: 
 - printf("%f",fa);
 - scanf("%f", &fa);//&fa(Address주소변수-값이저장된 주소를가진 변수))
-#### 작업예정
-- oracle폴더의 memberMapper, replyMapper, boardTypeMapper 3개파일 마이그레이션
-- 수정1: now() -> sysdata (현재일시구하기)
-- 수정2: limit 사용된 페이징 쿼리 -> 제거 후 기능변경(ROWNUM 키워드 사용, concat() -> ||연결문자사용)
-- 수정3: limit 사용된 조회시 최근게시물 1개 뽑아낼때 -> 제거 후 기능변경(ROWNUM 예약어 사용)
-- 수정4: < 부등호가 들어가 있는 쿼리는 <![CDATA[ 부등호가 있는 쿼리 ]]> 이렇게 CDATA로 처리.
-- 수정5: Insert의 AI(자동증가)부분 처리:마이바티스의 selectKey태그를 이용해서 시퀸스처리
-- 오늘 종료전 2월3일 다음카페에 제출하실 포트폴리오 구글 워드 문서 배포예정.
-- --------------------------------------------------------------------
-- 스프링MVC프로젝트 스프링버전 5.2.5 마이그레이션(버전 업그레이드)
-- 위 스프링버전 마이그레이션이 필요한이유: 자바버전 2.x 보편화 되었을때, 톰캣버전 9.x 보편화 되었을때, 등등 이유가 있음(필수)
-- kimilguk프로젝트를 그대로 두고, spring5-kimilguk이름으로 폴더를 복사해서 프로젝트 생성됨
-- kimilguk.herokuapp.com(스프링4.x), spring5-kimilguk.herokuapp.com(스프링5.x)
-- --------------------------------------------------------------------
-- 02월03일 부터 오라클 이론 단원06 진도 시작.
-- C언어 기초: 출석수업시 바로 IoT실습에 들어가기 위해서 구름IDE에서 C언어 실습연습.
-- --------------------------------------------------------------------
 #### 20210203(수) 작업
-- --------------------------------------------------------------------
 - 시작전: 이희탁씨(spring5깃허브+헤로쿠연동+네아로연동작업)OK., 
 - 이용오씨(헤로쿠2단계인증문제) 확인(아래 내용 시도중)
 - google authenticator 어플설치 깔아서 인증해서 들어가서 없앤 후 같은 메일로 로그인하면.
 - 2교시때 UI구현 과제물 구글워드파일 제출(다음카페)OK.
-- 02월03일 부터 오라클 이론 단원06 진도 시작.
 - 과제물 서식확인
 - SQL DEVELOPER 에서 위에서 생성한 오라클용 게시판관리 테이블의 인덱스 확인후 결과를 캡쳐해서 이 문서에 저장한다.
 - 게시물별 댓글 갯수를 표시하는 뷰테이블 생성해서, 생성 소스와 결과캡쳐물을 이 문서에 저장한다.
@@ -144,12 +175,32 @@ SELECT * FROM ALL_CONSTRAINTS WHERE TABLE_NAME='TBL_CONSTRAINT'
 -- 목표: 게시물별 댓글이 달린 게시물 + 댓글 개수가 나오는 표(테이블)을 생성
 -- 목표분해1: 게시물에 댓글이 달린 게시물만 출력  (기본) 테이블 조인 사용(교집합개념)
 -- 목표분해2: 위 출력물에서 댓글개수를 추가로 출력(카운터) GROUP BY 해서 COUNT()사용
-SELECT * FROM TBL_BOARD;
-SELECT * FROM TBL_REPLY;
+-- 뷰테이블이 필요한 이유: 사용자 요구사항에 맞추기위해서, 보안때문에 노출할 정보를 제한이 가능함.
+-- 다른개발자, 다른이용자에게 숨겨야할 정보가 제외하고 자료를 공개할때, TBL_MEMBER테이블을공개하지 않고, 필드를 삭제한 VIEW_MEMBER_INFO라는 뷰테이블을 생성해서 제공하는 목적.
+- 위 제한된 정보를 가지고, 외부개발자가 REST-API화면을 만드는 겁니다.
+
+```
+SELECT TA.bno,TA.title,TA.writer,TA.reg_date,TA.view_count, COUNT(TB.rno) AS 댓글카운트 FROM 
+TBL_BOARD TA INNER JOIN TBL_REPLY TB ON TA.BNO = TB.BNO
+GROUP BY TA.bno,TA.title,TA.writer,TA.reg_date,TA.view_count
+-- HAVING COUNT(TB.rno) >= 3
+;
+```
 - 게시물별 첨부파일 갯수를 검색하는 쿼리를 테이블 조인을 이용해서 작성한 소스와 실행 결과캡쳐물을 이 문서에 저장한다.
 - 용어2 테이블조인:
-####20210202(화) 작업
-- scope(모듈이사용되는영역 provided-내장된다고 명시)1:
+
+```
+-- 게시물에 달린 첨부파일 개수를 구하기
+SELECT TA.BNO,TA.TITLE,TA.REG_DATE, COUNT(TB.REAL_FILE_NAME) AS 첨부파일개수
+FROM TBL_BOARD TA INNER JOIN TBL_ATTACH TB
+ON TA.BNO = TB.BNO
+GROUP BY TA.BNO,TA.TITLE,TA.REG_DATE -- 그룹으로 묶어주면 3줄이 2줄로 변경
+HAVING COUNT(TB.REAL_FILE_NAME) >= 2 -- 그룹의 해빙 조건절
+;
+```
+
+#### 20210202(화) 작업
+- scope(모듈이사용되는영역 provided-내장된다고 명시)1: 
 - provided-메모리를 기준: 톰캣이 실행시 jar모듈이 메모리에 로딩=인스턴스 생성.
 - scope(모듈이사용되는영역 runtime이라고 명시)2:
 - runtime-메모리를 기준: 톰캣 실행시 메모리에 로딩X, 해당 기능이 실행시runtime시 메모리에 로딩=인스턴스 생성.
@@ -158,15 +209,20 @@ SELECT * FROM TBL_REPLY;
 - 사전작업: JUnit에서 더미데이터 입력시 시간 초단위로 입력 부분 처리예정. - 문제없었음. 쿼리에서 sysdate로 박혀 있어서 그랬음.
 - 그래도, JUnit으로 더미 데이터를 입력하려면, 쿼리를 바꾸던가, 아니면, 인서트호출 후 Thread.sleep(1000);입력하면 해결됨.OK.
 - 사전작업: spring5-프로젝트명 신규레포지토리 git과 연동작업OK.
+- --------------------------------------------------------------------
 - 스프링MVC프로젝트 스프링버전 5.2.5 마이그레이션(버전 업그레이드)OK.
 - 위 스프링버전 마이그레이션이 필요한이유: 자바버전 2.x 보편화 되었을때, 톰캣버전 9.x 보편화 되었을때, 등등 이유가 있음(필수)
 - kimilguk프로젝트를 그대로 두고, spring5-kimilguk이름으로 폴더를 복사해서 프로젝트 생성됨
 - kimilguk.herokuapp.com(스프링4.x), spring5-kimilguk.herokuapp.com(스프링5.x)
-####20210201(월) 작업
+
+#### 20210201(월) 작업
 - 시작전1:replyMapper 마무리: 댓글 1개등록 후 삭제 후 다시등록시 페이징이 사라지는 문제 처리OK.
 - board_view.jsp의 삭제부분 $("#div_reply").empty(); 아래 코드로 수정.
 - $("#div_reply").find("div").not(".pagination").empty(); ->대신에 아래처럼 해도됨
+
+```
 - $("#div_reply").html('<div class="pagination justify-content-center"><ul class="pagination pageVO"></ul></div>');
+```
 - 시작전2:조회수 카운트도 필드값 null 때문에 증가가 않되는 부분 처리OK(NVL추가 아래).
 - 오라클 전용 수정할 쿼리: set view_count = NVL(view_count,0) + 1
 - 쿼리널체크: Mysql=ifnull(v1,v2),MSsql+Hsql=isnull(v1,v2)
@@ -175,7 +231,9 @@ SELECT * FROM TBL_REPLY;
 - 시작전4:게시판,댓글 페이징 부분은 정렬방식을 REG_DATE에서 BNO로 변경 취소.
 - 위3,4번 처리하는 대신 더미데이터만드는 프로시저에서 reg_date 현재시간기준 1초씩 증가하도록 처리 order by 가 제대로 작동하도록 처리OK.
 - 시작전: 더미데이터 만드는 프로시저에 REG_DATE항목을 1초 단위로 증가될 수 있도록 수정한 후 다시 더미데이터 생성한다.
-- create or replace PROCEDURE      "PROC_MEMBER_INSERT" 
+
+```
+create or replace PROCEDURE      "PROC_MEMBER_INSERT" 
 (
   P_COUNT IN NUMBER 
 ) AS 
@@ -216,26 +274,45 @@ BEGIN
         VALUES
         (SEQ_BNO.nextval,P_BOARD_TYPE,'게시물테스트','게시물내용테스트','관리자',SYSDATE + (1/24/60/60)*i,SYSDATE + (1/24/60/60)*i);
       END LOOP;
-- commit;
-- END PROC_BOARD_INSERT;
+commit;
+END PROC_BOARD_INSERT;
+```
 - oracle폴더의 memberMapper, replyMapper, boardTypeMapper 3개파일 마이그레이션 OK.
 - 수정1: now() -> sysdate (현재일시구하기)
 - 수정2: limit 사용된 페이징 쿼리 -> 제거 후 기능변경(ROWNUM 키워드 사용, concat() -> ||연결문자사용)
 - 수정3: limit 사용된 조회시 최근게시물 1개 뽑아낼때 -> 제거 후 기능변경(ROWNUM 예약어 사용)
-- 수정4: < 부등호가 들어가 있는 쿼리는 이렇게 CDATA로 처리.
+- 수정4: < 부등호가 들어가 있는 쿼리는 <![CDATA[ 부등호가 있는 쿼리 ]]> 이렇게 CDATA로 처리.
 - 수정5: Insert의 AI(자동증가)부분 처리:마이바티스의 selectKey태그를 이용해서 시퀸스처리
 - 오늘 종료전 2월3일(수2교시) 다음카페에 제출하실 포트폴리오 구글 워드 문서 배포OK.
+
 #### 20210129(금) 작업
 - 이론 단원 05단원 까지 진도OK.
 - 오라클 전용 쿼리에서 3개이상의 문자열 연결할때 파이프라인 특수문자를 사용: ||
-@@ -93,18 +111,13 @@
+- DISTINCT: 오라클 전용으로 중복데이터 삭제용도, 출력물에서 셀병합시 필요.
+- 보통 출력툴(레포트툴)이 보통 2000만원이상.
+- 자바프로그램에서 특수문자는 \s 로 s라는 문자가 아니고, 공백이라는 특수문자임을 \s 나타냄.
+- 위와 같은 \문자에서 \ 역슬래시를 이스케이프 문자라고 하고 정규표현식에서 많이 사용됨.
+- 산술연산자: +,-,*,/
+- 논리연사자: OR(+) , AND(*), NOT(!Inverse)
+- 필드명 BETWEEN a AND b: 필드값이 a 에서부터 b 까지~
+- 필드명 IN(배열) : 필드명에 배열에 있는 값이 포함되어 있는지 비교.
+- 교재용 영문테이블명: DEPT(부서테이블), EMP(사원테이블)
+- 교재용 쇼핑몰테이블: DEMO_CUSTOMERS(고객테이블), ORDERS(주문정보-부모테이블)
+- 쇼핑몰이어서: ORDER_ITEMS(주문정보상세-자식테이블)
+- 쇼핑몰이어서: PRODUCT_INFO(상품등록테이블), STATES(배송주소정보테이블)
+- 쇼핑몰이어서: DEMO_USERS(쇼핑몰관리자 직원테이블)
+- 서블렛 + JSP = 쇼핑몰 웹사이트=> 스트러츠 => 대신에 스프링으로 MVC 웹프로젝트 제작.
 - 테이블 정보(메타데이터=데이터딕셔너리=정보의정보)와  테이블 내용(데이터-예,게시판데이터) 차이 확인.
 - SQL*PLUS는 CLI(명령어라인인터페이스)와 SQL디벨러퍼는 GUI(그래픽유저인터페이스)
 - 아래 매퍼내용 수정1~5 참조해서 reply, member 쿼리 확인 후 수정조치.
 - 오라클에서 첨부파일 신규등록 확인(필수)OK.
 - 매퍼쿼리는 commit;하지 않아도 스프링이 자동 커밋해 줍니다.
+
 #### 20210128(목) 작업
+- 테스트절차: 게시물신규등록, 게시물신규등록시 첨부파일도 신규등록.
 - 이론 단원04까지 진도.
+- 매퍼(마이바티스)쿼리에서 오라클전용일때 수정할 부분요약: boardMapper.xml만 처리중.
+- 참고: Hsql용 최근게시물 ㅂ1개 뽑아낼떄: select top 1 bno from tbl_board order by bno desc
 - DELETE와 TRUNCATE 차이점: 둘다 테이블내용을 삭제하는 것은 동일.
 - DELETE: 100개의 레코드를 지우면, 내용은 지워지지만, 100개의 공간은 남아있음.
 - TRUNCATE: 100개의 레코드를 지우면, 내용도 지우고, 100개의 공간도 날아갑니다.
@@ -258,7 +335,7 @@ BEGIN
 - DCL(Dump 백업, Grant-권한): Data Controll Language 데이터 제어 언어.
 - root-context.xml 에서 오라클 커넥션 bean(스프링용클래스)을 생성하고, mybatis용 쿼리 생성예정.
 
-####20210127(수) 작업
+#### 20210127(수) 작업
 - 오라클 마이그레이션 외부준비 작업OK.
 - 오라클데이터베이스 서버 관리 화면 기본 URL:8080 을 사용합니다.
 - 톰캣기반의 스프링웹프로젝트 http://localhost:8080 를 실행한 상태에서 오라클을 설치해야 8080을 피해서 9000포트로 설치할 수 있습니다.OK
@@ -269,36 +346,50 @@ BEGIN
 - ERD만든이후 싱크맞추기(워크벤치처럼 GUI를 이용해서 만들어지지 않음)-생성된 쿼리를 수동으로 실행.
 - 토드(Toad) 유료프로그램은 워크벤치처럼 GUI로 ERD모델과 DB스키마와 싱크를 맞출 수 있습니다.
 - 오라클은 AI(오토 인크리먼트) PK(프라이머리 키)자동증가 기능없기 때문에, 대신 시퀸스(Sequence-순서)기능을 대체 합니다.
-- 프로시저: sql로 만드는 프로그램이 프로시저(PL) 목적 더미데이터 생성 (회원100명, 게시물 100개) -- 오라클전용 방식1: SELECT 는 항상 FROM 테이브명필요 -- 테이블이 없는 SELECT에서는 가상테이블인 DUAL을 사용. -- 오라클전용 방식2: 오라클변수사용시 V_USER varchar2(20):='user'; 대입연사자 := 로대체 -- 오라클전용 방식3: 프로시저를 생성/수정 반드시 컴파일이 필요합니다.(Mysql과는 다른점) -- 오라클전용 방식4: 작업 후 반드시 commit;을 해야 합니다. -- SQL디벨러퍼 인코딩 설정변경필요(복원시 한글이 깨질때처리): 메뉴->도구->환경설정->환경메뉴 클릭->인코딩 UTF-8변경 -- 쿼리전용 방식1: IF같은 비교문에서 비교조건중 같다 == 등호1개 = -- 일반자바프로그램에서는 if(String A = 'abc') 이럴때 비교X 대입연산이 됨 -- concat('첫번째','두번째'): 문자열 합치는 함수
+- 프로시저: sql로 만드는 프로그램이 프로시저(PL) 목적 더미데이터 생성 (회원100명, 게시물 100개)
+-- 오라클전용 방식1: SELECT 는 항상 FROM 테이브명필요
+-- 테이블이 없는 SELECT에서는 가상테이블인 DUAL을 사용.
+-- 오라클전용 방식2: 오라클변수사용시 V_USER varchar2(20):='user'; 대입연사자 := 로대체
+-- 오라클전용 방식3: 프로시저를 생성/수정 반드시 컴파일이 필요합니다.(Mysql과는 다른점)
+-- 오라클전용 방식4: 작업 후 반드시 commit;을 해야 합니다.
+-- SQL디벨러퍼 인코딩 설정변경필요(복원시 한글이 깨질때처리): 메뉴->도구->환경설정->환경메뉴 클릭->인코딩 UTF-8변경
+-- 쿼리전용 방식1: IF같은 비교문에서 비교조건중 같다 == 등호1개 =
+-- 일반자바프로그램에서는 if(String A = 'abc') 이럴때 비교X 대입연산이 됨
+-- concat('첫번째','두번째'): 문자열 합치는 함수
+
 
 #### 20210126(화) 작업
 - boardTypeMapper.insertBoardType does not contain: 매퍼쿼리 확인해서 해결.
 - 변수와 매개변수(파라미터,인자,아규먼트,쿼리스트링 등등) 차이: 사용되는 위치에 따라서 불리는 명칭이 틀릴뿐 값을 저장하는 기능은 같습니다. 목적: 데이터 전달을 위한 중간 매개체
-- 게시판생성관리: CRUD중 미처리한 C부분 처리예정.
-- 사용자홈페이지 최신겔러리, 최신게시물 다중게시판 적용처리예정.
-- Hsql 변환 후 -> 헤로쿠에 배포.
+- 게시판생성관리: CRUD중 미처리한 C부분 처리OK.
+- 사용자홈페이지 최신겔러리, 최신게시물 다중게시판 적용처리OK.
+- Hsql 변환 후 -> 헤로쿠에 배포OK.
 
-####20210125(월) 작업
+#### 20210125(월) 작업
 - 세션은 서버에서 생성되는 저장소 입니다.:웹접속시 생성된 세션을 HttpServletRequest클래스로 관리
 - 다중게시판 삭제시, 게시판타입에 해당하는 게시물이 존재하면, 삭제불가 메세지 후 삭제로직 끝내기.
-#다중게시판: 게시판 생성기능이 포함됨.
+- #다중게시판: 게시판 생성기능이 포함됨.
 - @Aspect 기능으로 세션관리 : 1)DebugAdvice.java 에 sessionManager()메서드 생성
 - 게시판 타입세션을 사용. 스프링시큐리티를 사용하지 않았으면, 로그인인증체크 AOP세션으로도 처리.
-- @ControllAdvice 기능으로 @ModelAttribute List오브젝트반환후 jsp이용
+- @ControllAdvice 기능으로 @ModelAttribute List<BoardTypeVO>오브젝트반환후 jsp이용
 - 2)ControllerAdviceException.java 위 1),2)파일 오전에 작업한 주요파일.
+- ------------------------------------------------------------
 - AOP기능으로 세션관리 추가작업(아래)
 - 컨트롤러에서 PageVO또는 BoardVO가 Get/Set필요한 순간 항상 아래의 액션이 필요
 - pageVO.setBoard_type(session.getAttribute("session_board_type"));//페이지 진입시 항상필요
 - boardVO.setBoard_type(session.getAttribute("session_boartd_type"));//게시판CRUD시 항상필요
 - 위와 같이 MVC에서 항상 실행되는 부분을 뽑아내서 공통실행으로 만드는 과정을 AOP(관점지향프로그래밍)라고 합니다.
+- -----------------------------------
 - 세션변수 session_board_type를 컨트롤러,서비스,DAO,매퍼 모두VO기준 get/set발생할때 세션 변수를 사용할 예정. AOP또는 Interceptor가로채기 클래스를 이용해서 구현예정.
 - AOP로는 : session_board_type변수를 생성관리
-- ControllerAdvice로는 : board_type게시판타입 리스트(List)를 jsp 모델값으로 전송해주는 인터셉터 기능을 사용 메뉴관리.
-
+- ------------------------------------
+- ControllerAdvice로는 : board_type게시판타입 리스트(List<BoardTypeVO>)를 jsp 모델값으로 전송해주는 인터셉터 기능을 사용 메뉴관리.
 - DAO 에 boardTypeList를 가져올수 있는 메서드를 1개 만듭니다.
 
-- 기존 작업한 BoardVO 와 PageVO 2군데 주석처리 -> //this.board_type = "notice";//세션변수를 사용할 예정. (아래 DebugAdvice클래스의 AOP소스)
+- 기존 작업한 BoardVO 와 PageVO 2군데  주석처리 -> //this.board_type = "notice";//세션변수를 사용할 예정.
+(아래 DebugAdvice클래스의 AOP소스)
 
+```
 @Around("execution(* org.edu.controller.*Controller.*(..))")
 public Object sessionGetSet(ProceedingJoinPoint pjp) throws Throwable {
 	logger.info("AOP 세션GetSet 시작=========================");
@@ -335,20 +426,29 @@ public Object sessionGetSet(ProceedingJoinPoint pjp) throws Throwable {
 	logger.info("AOP GetSet 끝 ==========================");
 	return returnObj;
 }
+```
 - AdminController에서 작업한 board_list 메서드의 HttpServletRequest request, 부분은 제외 시킵니다.(AOP에서 구현했기 때문에)
 - 바로 아래 코드도 주석처리(AOP에서 구현했기 때문에)
+
+```
 HttpSession session = request.getSession();
 if(board_type != null) {
 	session.setAttribute("session_board_type", board_type);
 }
+```		
 - 관리자단 게시판생성 CRUD 작업예정.(다중게시판)
 - 사용자단 게시판생성에 영향을 받는 부분 작업예정.
-####20210122(금) 작업
+
+#### 20210122(금) 작업
 - 시작전, sns용 전역변수 처리 후 헤로쿠에도 배포 후에도 로그인 확인
+
+```
 #sns로그인 접속정보: sns.properties 에 있는 내용
-- SnsClientID=본인아이디
-- SnsClientSecret=본인암호
-- SnsCallbackUri=http://127.0.0.1:8080/login_callback
+SnsClientID=본인아이디
+SnsClientSecret=본인암호
+SnsCallbackUri=http://127.0.0.1:8080/login_callback
+```
+```
 @PropertySource("classpath:properties/sns.properties") 추가
 //설정파일에서 변수값으로 가져옴 sns.properties 에 있는 내용
 @Value("${SnsClientID}")
@@ -357,11 +457,21 @@ private String CLIENT_ID;
 private String CLIENT_SECRET;
 @Value("${SnsCallbackUri}")
 private String REDIRECT_URI;
+```
 - 관리자단에 게시판 생성 메뉴추가 후 작업진행 예정.
 
-#### 20210121(목) 작업예정
-- 회원가입 프로그램처리 결과확인.
-- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
+#### 20210121(목) 작업
+- 기능추가: DB-erd수정 -> 물리DB싱크 -> VO클래스 추가/변경 -> 매퍼쿼리추가/수정 -> DAO/Service/Controller 추가/수정 -> JSP단 추가/수정
+- varchar -> int 순서정렬 : 문자일때 1, 10, 2, 3, 4 -> 숫자 1,2,3,4...10, 11
+- 인증(Authentication) - 스프링시큐리티에서 enalbed 가 인증체크
+- 권한(Authorization) - 스프링시큐리티에서 ROLE_ADMIN, ROLE_USER 가 권한체크 
+- 콜백 URL: function() 콜백함수와 같은 기능처럼=자동실행되는 함수처럼 로그인 URL로 자동으로 이동하는 방법이 콜백URL
+- 로그인 후 이동할 URL == 콜백URL 과 같은 이야기
+- 네아로 서비스URL : http://localhost:8080 -> http://127.0.0.1:8080
+- 시작전, /admin/member/member_update (AdminController클래스매핑)에서 조건변경
+- memberVO.getUser_pw() != null -> 추가 || memberVO.getUser_pw() != ""
+- 회원가입 프로그램처리 결과확인.(회원가입 후 바로 로그인X, 관리자가 enabled true로 변경 후 신규회원이 로그인 가능.)
+- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습OK.
 
 #### 20210120(수) 작업
 - 이론은 ch13~ch16 마무리OK.
@@ -370,26 +480,23 @@ private String REDIRECT_URI;
 - 회원탈퇴 여부도 disabled처리 및 input hidden으로 값 지정.
 - 사용자단, 유효성 검사 기능을 포함해서 마이페이지OK.
 - 관리자단, @Valid 애노테이션 사용해서 유효성 검사 실습OK.(pom.xml 외부모듈추가)
-#### 20200119(화) 
+
+#### 20210119(화) 작업
+- 메인페이지 최근게시물 처리, 최근이미지 처리(1개의 게시판으로 처리OK)
+- 헤로쿠 배포OK.
 - 수업전 어제 Update확인 및 Junit에서 properties파일 로딩해서 전역변수 사용하기 처리 추가.
-- @PropertySource("classpath:properties/local.properties") J유닛파일상단에 추가
-- 사용자단 게시판 CRUD마무리 예정.(Delete작업예정)
-- 메인페이지 최근게시물 처리, 최근이미지 처리(1개의 게시판으로 처리예정)
-- 헤로쿠 배포
-- 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
-- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
+- @PropertySource("classpath:properties/local.properties") J유닛파일상단에 추가(전역변수 필요없음)
 - root-context.xml에서, dataSource-hslq_local 을 dataSource로 알리아스(별칭)를 만들어서 Junit DB작동 처리
-- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
-####20210118(월) 작업예정
+- 사용자단 게시판 CRUD마무리OK.(Delete작업)
+
+#### 20210118(월) 작업
 - 세로데이터 형식(DB에서 쿼리로 출력되는 원본데이터가 레코드데이터==세로데이터)
 - [ 'attach_list' {
 - {'a.jpg','슬라이드1.jpg'},
 - {'b.jpg','슬라이드2.jpg'},
 - {'c.jpg','슬라이드3.jpg'}
 - } ]
-- 위 데이터를 jsp에서 출력할때는 세로데이터로 나옵니다. foreach(items:'${attach_list}' var='file_name') {
-- file_name.save_file_name
-- }
+- 위 데이터를 jsp에서 출력할때는 세로데이터로 나옵니다. foreach(items:'${attach_list}' var='file_name') {<li>file_name.save_file_name</li>}
 - 위 세로 데이터를 가로 데이터로 변경하면 출력은
 - save_file_names = {"a.jpg","b.jpg","c.jpg"};(가로데이터==변수데이터)
 - real_file_names = {"슬라이드1.jpg","슬라이드2.jpg","슬라이드2.jpg"};(가로데이터==변수데이터)
@@ -408,28 +515,37 @@ private String REDIRECT_URI;
 - 헤로쿠 배포예정.
 - 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
 - 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
-####20210115(금) 작업
+
+#### 20210115(금) 작업
 - 배포 파이프라인 : 개발에서 부터 배포 까지 관리하는 프로그램을 파이프라인 이라고 합니다.
 - 서블렛자바+JSP(jstlX)프로그램 - 스트러츠웹프로그램만들기 - 스프링+jsp(jstl)웹프로그램만들기 - 미래에는 알지못하는 프레임워크
+- --------------------
 - 헤로쿠에 배포하기1-DB부분: root-context.xml
+- --------------------
 - @1 헤로쿠:Hsql DB위치 변경: /tmp/~ + 1회용 초기화 부분 주석 해제
 - @2 PC용 :Hsql DB위치 변경: c[타드라이브]:/~ + 1회원 초기화 부분 주석 처리
+- ------------------------
 - 헤로쿠에 배포하기2-첨부파일부분: servlet-context.xml
+- ------------------------
 - @1 헤로쿠: 업로드 경로 변경: /tmp/~
 - @2 PC용 : 업로드 경로 변경: c[타드라이브]:~
-#### 20200114(목) 작업예정
-- 사용자단 , 댓글 CRUD 마무리.
-- 사용자단, 게시판 CRUD 마무리.
-- 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
-- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
+- ------------------------
+#### 20210114(목) 작업
+- 사용자단 , 댓글 CRUD 마무리OK.
+- HSQL: 간단한 웹프로그램 제작시 사용하는 DB.- 개발자들이 빨리 만들때, 프로토타입, 신규서비스전 간단하게 작업시 주로 이용.Hsql는 서비스용은 아니고, 개발전용 입니다.
+- 임베디드 DB(Hsql)=내장된 DB라이브러리모듈=메모리 DB 단점: 톰캣서버를 재실행하면, 메모리DB에 추가/수정내용이 사라짐
+- 실습은 embeded_hsql_file로 적용예정 입니다.=fileDB의 장점: 톰켓서버를 재 실행해도 Mysql처럼 내용이 보존됨.
 - 헤로쿠(URL)에 배포(HsqlDB로 배포, 메이븐 외부 라이브러리 추가필수 pom.xml수정)
+- 헤로쿠클라우드의 특징: 무료, 1달 사용450시간까지 무료로 접근이 가능.(트래픽시간을 초과했습니다 면서 URL접근이 X)
+- 헤로쿠의 단점: 30분 동안 URL에 접근하지 않으면, ZZZ 휴면상태로 진입 -> 활성화시키는데 20초 정도 필요.
+- 스프링기능중에 스케줄기능 -> 20분마다 1번씩 URL https://kimilguk.herukuapp.com 에 접근하도록 만들면 해결
+- 스프링의 스케즐 프로그램 제작OK.(회원에게 3개월동안 접속하지 않는 사용자들에게 일괄적으로 메세지를 보낼때)
+- ------------------------------------------------------------
+- 사용자단, 게시판 CRUD 마무리.
 
 #### 20210113(수) 작업
 - 이론은 ch13 시작 예정.
 - 사용자단, 게시판/RestApi댓글 CRUD처리.
-- 사용자단, 유효성 검사 기능을 포함해서 마이페이지+회원가입 프로그램처리.
-- 네이버아이디 로그인(네이버에서 제공Rest-API백엔드단) 실습.
-- 헤로쿠(URL)에 배포(HsqlDB로 배포, 메이븐 외부 라이브러리 추가필수 pom.xml수정)
 - 수업시작전 로그인 에러 자바스크립트 메세지 출력 추가 및 이미지파일미리보기 구형 버전에서 에러나는 문제 처리
 
 ```

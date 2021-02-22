@@ -26,11 +26,11 @@
     <!-- 본문내용 Main content -->
     <section class="content">
       <div class="container-fluid">
-
+         
         <div class="row"><!-- 부트스트랩의 디자인 클래스 row -->
           <div class="col-12"><!-- 그리드시스템중 12가로칼럼 width:100% -->
             <div class="card"><!-- 부트스트랩의 카드 클래스:네모난 디자인 -->
-
+              
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                   <thead>
@@ -61,28 +61,28 @@
                       </td>
                     </tr>
                   </c:forEach>
-
+                    
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
-
+            
             </div>
             <!-- /.card -->
-
+            
             <!-- 버튼영역 시작 -->
               <div class="card-body">
               	<a href="/admin/bbs_type/bbs_type_write" class="btn btn-primary float-right">게시판생성</a>
               </div>
             <!-- 버튼영역 끝 -->
-
+            
           </div>
         </div>
-
+        
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-<%@ include file="../include/footer.jsp" %> 
+  
+<%@ include file="../include/footer.jsp" %>

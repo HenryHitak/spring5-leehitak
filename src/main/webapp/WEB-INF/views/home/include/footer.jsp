@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+	
 	<!-- 푸터메뉴및사업자정보영역 -->
 	<footer>
 		<div class="foot_area box_inner">
@@ -33,4 +33,4 @@
 <!-- //하단퀵메뉴영역 -->
 
 </body>
-</html> 
+</html>

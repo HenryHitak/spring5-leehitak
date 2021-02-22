@@ -38,16 +38,15 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <strong><i class="fas fa-book mr-1"></i> user_id</strong>
-				<!-- <p class="text-muted">admin</p> -->
                 <p class="text-muted">
                 <!-- jsp에서 자바변수(저장소)를 사용하는 방법 Model로 수신한 $ user_id2 변수명 으로 표시 -->
                 <%-- ${user_id2} 아래 보안코딩 적용 --%>
-                <c:out value="${memberVO.user_id}님"></c:out>
+                <c:out value="${memberVO.user_id}"></c:out>
                 </p>
-                
-				<hr><!-- horizontal 수평선 태그 -->
+
+                <hr><!-- horizontal 수평선 태그 -->
                 <strong><i class="fas fa-map-marker-alt mr-1"></i> user_name</strong>
-                <p class="text-muted">${memberVO.user_name}<</p>
+                <p class="text-muted">${memberVO.user_name}</p>
 				<!-- 부트스트랩 오른쪽여백주기클래스명mr-1:(margin-right: .25rem!important;) -->
                 <hr>
                 <strong><i class="fas fa-pencil-alt mr-1"></i> email</strong>
@@ -67,12 +66,13 @@
               </div>
               <!-- /.card-body -->
             </div>
-              <form name="action_form" id="action_form" action="">
+          
+          <form name="action_form" id="action_form" action="">
           <!-- 버튼영역 시작 -->
             <div class="card-body">
             	<a href="/admin/member/member_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
-              	  <button type="button" id="deleteBtn" class="btn btn-danger float-right mr-1">DELETE</button>
-				<button type="button" id="updateBtn" class="btn btn-warning float-right mr-1 text-white">UPDATE</button>          	
+              	<button type="button" id="deleteBtn" class="btn btn-danger float-right mr-1">DELETE</button>
+				<button type="button" id="updateBtn" class="btn btn-warning float-right mr-1 text-white">UPDATE</button>        	
               	<!-- 부트스트랩 디자인 버튼클래스를 이용해서 a태그를 버튼모양 만들기(위) -->
               	<!-- btn클래스명이 버튼모양으로 변경, btn-primary클래스명은 버튼색상을 변경하는역할 -->
               	<!-- 
@@ -84,9 +84,9 @@
               	 -->
               </div>
           <!-- 버튼영역 끝 -->
-         
-         <input type="hidden" name="user_id" value="${memberVO.user_id}">
-          </form> 
+          <input type="hidden" name="user_id" value="${memberVO.user_id}">
+          <input type="hidden" name="page" value="${pageVO.page}">
+          </form>
           </div>
         </div>
         
@@ -113,4 +113,4 @@ $(document).ready(function(){
 		$("#action_form").submit();
 	});
 });
-</script> 
+</script>
